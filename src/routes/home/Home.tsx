@@ -3,7 +3,7 @@ import { Stack, MediaQuery } from "@mantine/core";
 import NewItem from "./NewItem";
 import { useState } from "react";
 
-const PLACEHOLDER_ITEMS = [
+export const PLACEHOLDER_ITEMS = [
     {
         name: 'New Balance Daddios',
         price: '20.99',

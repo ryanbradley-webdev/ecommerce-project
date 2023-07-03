@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Burger } from '@mantine/core'
 import Menu from './Menu'
+import CartIcon from './CartIcon'
 import styles from './header.module.css'
 
 export default function Header() {
@@ -16,6 +17,8 @@ export default function Header() {
             <span>
                 Commerce City
             </span>
+
+            <CartIcon />
 
             <Burger
                 opened={menuVisible}

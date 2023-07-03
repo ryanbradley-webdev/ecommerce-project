@@ -2,7 +2,7 @@
     position: sticky;
     height: 60px;
     display: flex;
-    justify-content: space-between;
+    gap: 16px;
     align-items: center;
     padding-inline: 16px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -28,4 +28,19 @@
     gap: 2px;
     color: var(--color-blue);
     font-size: 20px;
+}
+
+.cart {
+    position: relative;
+    display: flex;
+    margin-left: auto;
+    background: none;
+    outline: none;
+    border: none;
+}
+
+.badge {
+    position: absolute;
+    top: -25%;
+    right: -50%;
 }
