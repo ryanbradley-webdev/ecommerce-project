@@ -6,6 +6,7 @@ import ProductDescription from "./routes/products/ProductDescription";
 import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import './App.css'
+import Cart from "./routes/cart/Cart";
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
         <Route path="/products" element={<Products />} />
 
         <Route path="/products/:id" element={<ProductDescription />} />
+
+        <Route path="/cart" element={<Cart />} />
 
       </Routes>
 

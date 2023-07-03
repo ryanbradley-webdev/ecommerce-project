@@ -17,9 +17,15 @@ export default function Header() {
                 Commerce City
             </span>
 
-            <Burger opened={menuVisible} onClick={toggleMenu} />
+            <Burger
+                opened={menuVisible}
+                onClick={toggleMenu}
+            />
 
-            <Menu  isVisible={menuVisible} />
+            <Menu
+                isVisible={menuVisible}
+                toggleMenu={toggleMenu}
+            />
 
         </header>
     )
