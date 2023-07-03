@@ -1,5 +1,6 @@
 import { Carousel } from "@mantine/carousel";
 import { Button, Card, Stack, MediaQuery, Text } from "@mantine/core";
+import NewItem from "./NewItem";
 
 export default function Home() {
     return (
@@ -20,9 +21,21 @@ export default function Home() {
 
                 </MediaQuery>
 
+                <div>
+
+                <h4
+                    style={{
+                        marginLeft: '11%'
+                    }}
+                >
+                    Recent Additions
+                </h4>
+
                 <Carousel
+                    loop
+                    align='center'
+                    slideGap='xl'
                     slideSize='80%'
-                    slideGap='lg'
                     withIndicators
                     styles={{
                         indicator: {
@@ -31,26 +44,14 @@ export default function Home() {
                     }}
                 >
 
-                    <Carousel.Slide>
-                    <Card radius={8} shadow="md" withBorder style={{ paddingBottom: '42px' }}>
-                        <Card.Section>
-                            <img src="/pic1.jpg" alt="" style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover' }} />
-                        </Card.Section>
-                        <Card.Section p={8}>
-                            <Text>
-                                Shoes!
-                            </Text>
-                        </Card.Section>
-                        <Card.Section p={8}>
-                            <Button fullWidth>
-                                Explore
-                            </Button>
-                        </Card.Section>
-                    </Card>
-                    </Carousel.Slide>
+                    <NewItem
+                        image="/pic1.jpg"
+                        name='New Balance Daddios'
+                        price="20.99"
+                    />
 
                     <Carousel.Slide>
-                    <Card radius={8} shadow="md" withBorder style={{ paddingBottom: '42px' }}>
+                    <Card radius={8} shadow="md" withBorder pb={42}>
                         <Card.Section>
                             <img src="/pic2.jpg" alt="" style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover' }} />
                         </Card.Section>
@@ -68,7 +69,7 @@ export default function Home() {
                     </Carousel.Slide>
 
                     <Carousel.Slide>
-                    <Card radius={8} shadow="md" withBorder style={{ paddingBottom: '42px' }}>
+                    <Card radius={8} shadow="md" withBorder pb={42}>
                         <Card.Section>
                             <img src="/pic3.jpg" alt="" style={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover' }} />
                         </Card.Section>
@@ -86,6 +87,8 @@ export default function Home() {
                     </Carousel.Slide>
 
                 </Carousel>
+
+                </div>
 
             </Stack>
 
