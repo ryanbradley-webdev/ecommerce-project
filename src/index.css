@@ -9,9 +9,11 @@
 }
 
 :root {
-    --color-blue: rgb(36, 91, 163);
+    --color-blue: rgb(63, 136, 231);
+    --color-blue-light: rgb(208, 220, 236);
 }
 
 a {
     text-decoration: none;
+    color: var(--color-blue);
 }

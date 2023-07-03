@@ -21,9 +21,9 @@ export default function Menu({
             >
 
                 <IconHome2
-                    size={30}
+                    size={36}
                     strokeWidth={2}
-                    color='var(--color-blue)'
+                    color='var(--color-blue-light)'
                 />
 
                 Home
@@ -36,9 +36,9 @@ export default function Menu({
             >
 
                 <IconShoppingBag
-                    size={30}
+                    size={36}
                     strokeWidth={2}
-                    color='var(--color-blue)'
+                    color='var(--color-blue-light)'
                 />
 
                 Products
@@ -51,9 +51,9 @@ export default function Menu({
             >
 
                 <IconShoppingCart
-                    size={30}
+                    size={36}
                     strokeWidth={2}
-                    color='var(--color-blue)'
+                    color='var(--color-blue-light)'
                 />
                 
                 Cart

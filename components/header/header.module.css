@@ -23,7 +23,7 @@
 .menu a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 2px;
     color: var(--color-blue);
-    font-size: 24px;
+    font-size: 20px;
 }

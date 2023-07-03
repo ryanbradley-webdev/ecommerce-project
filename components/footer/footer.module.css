@@ -1,0 +1,8 @@
+.footer {
+    text-align: center;
+}
+
+.footer > * {
+    display: block;
+    margin-block: 12px;
+}
