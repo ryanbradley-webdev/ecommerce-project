@@ -2,7 +2,7 @@ import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
-import { PLACEHOLDER_ITEMS } from '../../src/routes/home/Home'
+import { PLACEHOLDER_ITEMS } from '../../placeholderData.ts'
 
 export default function CartIcon() {
     return (
