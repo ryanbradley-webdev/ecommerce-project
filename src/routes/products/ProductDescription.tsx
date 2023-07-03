@@ -4,8 +4,8 @@ export default function ProductDescription() {
     const { id } = useParams()
 
     return (
-        <div>
+        <main>
             {id}
-        </div>
+        </main>
     )
 }
