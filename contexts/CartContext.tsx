@@ -2,9 +2,7 @@ import { createContext, ReactNode, useReducer } from "react"
 import { reducer, initialCart } from "./cartReducer"
 import { Product, CartData } from "../types"
 
-export const CartContext = createContext<Partial<CartData>>({
-    cart: []
-})
+export const CartContext = createContext({} as CartData)
 
 export default function CartProvider({ children }: { children: ReactNode | ReactNode[] }) {
     const [cart, dispatch] = useReducer(reducer, initialCart)
@@ -14,12 +12,12 @@ export default function CartProvider({ children }: { children: ReactNode | React
 
         if (targetItem) {
             return increaseQuantity(product.id)
+        } else {
+            dispatch({
+                type: 'addItem',
+                payload: { product, quantity }
+            })
         }
-        
-        dispatch({
-            type: 'addItem',
-            payload: { product, quantity }
-        })
     }
 
     const removeItemFromCart = (id: string) => {

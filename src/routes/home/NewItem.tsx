@@ -1,15 +1,12 @@
 import { Carousel } from "@mantine/carousel";
 import { Button, Card, Group, Text } from "@mantine/core";
-
+import CartBtn from '../../../components/CartBtn'
+import { Product } from "../../../types";
 
 export default function NewItem({
-    image,
-    name,
-    price
+    product
 }: {
-    image: string,
-    name: string,
-    price: string
+    product: Product
 }) {
     return (
         <Carousel.Slide>
@@ -24,7 +21,7 @@ export default function NewItem({
                 <Card.Section>
                     
                     <img
-                        src={image}
+                        src={product.image}
                         alt=""
                         width='100%'
                         style={{ 
@@ -43,14 +40,14 @@ export default function NewItem({
                     <Text
                         weight={500}
                     >
-                        {name}
+                        {product.name}
                     </Text>
 
                     <Text
                         color="var(--color-green)"
                         weight={500}
                     >
-                        {'$' + price}
+                        {'$' + product.price}
                     </Text>
                     
                 </Group>
@@ -63,12 +60,9 @@ export default function NewItem({
                     Explore
                 </Button>
                     
-                <Button
-                    fullWidth
-                    mt={16}
-                >
-                    Add to cart
-                </Button>
+                <CartBtn
+                    product={product}
+                />
                 
             </Card>
             

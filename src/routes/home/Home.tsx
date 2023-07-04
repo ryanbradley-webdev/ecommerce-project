@@ -46,10 +46,10 @@ export default function Home() {
                         }}
                     >
 
-                        {PLACEHOLDER_ITEMS.map(item => (
+                        {PLACEHOLDER_ITEMS.map(product => (
                             <NewItem
-                                {...item}
-                                key={item.id}
+                                product={product}
+                                key={product.id}
                             />
                         ))}
 

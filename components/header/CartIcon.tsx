@@ -1,15 +1,23 @@
-import { useContext, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
 import { CartContext } from '../../contexts/CartContext.tsx'
-
-import { PLACEHOLDER_ITEMS } from '../../placeholderData.ts'
 import { Link } from 'react-router-dom'
 
 export default function CartIcon() {
     const { cart } = useContext(CartContext)
+
+    const itemCount = useMemo(() => {
+        let count = 0
+
+        cart.forEach(item => {
+            count += item.quantity
+        })
+
+        return count
+    }, [cart])
 
     const [menuOpen, setMenuOpen] = useState(false)
 
@@ -33,14 +41,14 @@ export default function CartIcon() {
                     
                     <IconShoppingCart />
 
-                    {cart && cart.length > 0 && (
+                    {itemCount > 0 && (
                         <Badge
                             variant='filled'
                             color='red'
                             className={styles.badge}
                             px={6}
                         >
-                            {cart.length || 0}
+                            {itemCount}
                         </Badge>)
                     }
 
@@ -53,13 +61,13 @@ export default function CartIcon() {
             >
 
                 <Menu.Label>
-                    {cart?.length || 0} Items
+                    {itemCount} Items
                 </Menu.Label>
 
-                {PLACEHOLDER_ITEMS.map(item => (
+                {cart.map(item => (
                     <MenuItem
-                        product={item}
-                        key={item.id}
+                        product={item.product}
+                        key={item.product.id}
                         toggleMenu={toggleMenu}
                     />
                 ))}
