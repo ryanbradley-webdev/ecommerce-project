@@ -48,6 +48,7 @@
 }
 
 .product {
+    min-width: 250px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.247);
 }
 
@@ -60,9 +61,10 @@
     justify-content: space-between;
 }
 
-.product_data p {
+.remove {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     color: var(--color-red);
+    cursor: pointer;
 }

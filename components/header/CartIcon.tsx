@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo, useRef, useState } from 'react'
 import { IconShoppingCart, IconTrashX } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
@@ -42,6 +42,7 @@ export default function CartIcon() {
             position='bottom-end'
             shadow='0px 3px 4px 3px rgba(0, 0, 0, 0.247)'
             opened={menuOpen}
+            width={280}
         >
 
             <Menu.Target>
@@ -77,11 +78,12 @@ export default function CartIcon() {
                 </Menu.Label>
 
                 {cart.map(item => (
-                    <MenuItem
-                        {...item}
-                        key={item.product.id}
-                        toggleMenu={toggleMenu}
-                    />
+                    <Link to={`/products/${item.product.id}`} key={item.product.id}>
+                        <MenuItem
+                            {...item}
+                            toggleMenu={toggleMenu}
+                        />
+                    </Link>
                 ))}
 
                 <Group
@@ -126,7 +128,7 @@ export default function CartIcon() {
                         }}
                     >
                         <Button
-                            style={{ 
+                            style={{
                                 width: '100%'
                             }}
                         >
@@ -151,38 +153,56 @@ function MenuItem({
     quantity: number,
     toggleMenu: () => void
 }) {
+    const { removeItemFromCart } = useContext(CartContext)
+
+    const trashRef = useRef<HTMLDivElement>(null)
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>, id: string) => {
+            e.stopPropagation()
+
+            e.preventDefault()
+
+            removeItemFromCart(id)
+    }
+    
     return (
-        <Link to={`/products/${product.id}`}>
-            <Menu.Item
-                className={styles.product}
-                rightSection={
-                    <>
-                        <Text weight={500} size={16}>{product.name}</Text>
-                        <div className={styles.product_data}>
-                            <Text>
-                                &times;{quantity}
-                            </Text>
-                            <p>
-                                <IconTrashX size={20} color='var(--color-red)' />
+        <Menu.Item
+            className={styles.product}
+            rightSection={
+                <>
+                    <Text weight={500} size={16}>{product.name}</Text>
+                    <div className={styles.product_data}>
+                        <Text>
+                            &times;{quantity}
+                        </Text>
+                        <div
+                            onClick={e => handleClick(e, product.id)}
+                            ref={trashRef}
+                            className={styles.remove}
+                        >
+                            <IconTrashX size={20} color='var(--color-red)' />
+                            <Text
+                                color='var(--color-red)'
+                            >
                                 Remove
-                            </p>
+                            </Text>
                         </div>
-                    </>
-                }
-                onClick={toggleMenu}
-                icon={
-                    <img
-                        src={product.image}
-                        alt=""
-                        width={50}
-                        style={{ 
-                            aspectRatio: '1 / 1', 
-                            objectFit: 'cover', 
-                            borderRadius: '4px' 
-                        }}
-                    />
-                }
-            ></Menu.Item>
-        </Link>
+                    </div>
+                </>
+            }
+            onClick={toggleMenu}
+            icon={
+                <img
+                    src={product.image}
+                    alt=""
+                    width={50}
+                    style={{ 
+                        aspectRatio: '1 / 1', 
+                        objectFit: 'cover', 
+                        borderRadius: '4px' 
+                    }}
+                />
+            }
+        ></Menu.Item>
     )
 }
