@@ -1,6 +1,7 @@
 import { Card, Group, Text, Button } from "@mantine/core";
 import CartBtn from "../../../components/CartBtn";
 import { Product } from "../../../types";
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ 
     product
@@ -82,7 +83,9 @@ export default function ProductCard({
                 variant="outline"
                 mt={16}
             >
-                Explore
+                <Link to={product.id} style={{ width: '100%' }}>
+                    Explore
+                </Link>
             </Button>
                 
             <CartBtn

@@ -11,7 +11,18 @@ import Checkout from "./routes/checkout/Checkout";
 
 export default function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider 
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        breakpoints: {
+          sm: '480px',
+          md: '768px',
+          lg: '1024px',
+          xl: '1200px',
+        }
+      }}
+    >
 
       <Header />
 

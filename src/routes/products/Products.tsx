@@ -38,13 +38,14 @@ export default function Products() {
             <Grid
                 py={48}
                 px={15}
-                columns={1}
             >
 
                 {filteredProducts.map(item => (
                     <Grid.Col
                         key={item.id}
-                        span={1}
+                        sm={6}
+                        md={4}
+                        lg={3}
                     >
                         <ProductCard
                             product={item}
