@@ -1,5 +1,5 @@
 import { Carousel } from "@mantine/carousel";
-import { Stack, MediaQuery } from "@mantine/core";
+import { Stack, MediaQuery, Text, Grid, Image } from "@mantine/core";
 import NewItem from "./NewItem";
 
 import { PLACEHOLDER_ITEMS } from '../../../placeholderData.ts'
@@ -54,6 +54,43 @@ export default function Home() {
                         ))}
 
                     </Carousel>
+
+                </div>
+
+                <div>
+
+                    <Text
+                        align="center"
+                        weight={500}
+                        size={20}
+                    >
+                        We Carry All Major Brands
+                    </Text>
+
+                    <Grid
+                        columns={2}
+                        align="center"
+                        gutter={24}
+                    >
+                        <Grid.Col span={1}>
+                            <Image src='/nike.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                        <Grid.Col span={1}>
+                            <Image src='/addidas.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                        <Grid.Col span={1}>
+                            <Image src='/skechers.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                        <Grid.Col span={1}>
+                            <Image src='/vans.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                        <Grid.Col span={1}>
+                            <Image src='/new-balance.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                        <Grid.Col span={1}>
+                            <Image src='/converse.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        </Grid.Col>
+                    </Grid>
 
                 </div>
 
