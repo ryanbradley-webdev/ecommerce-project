@@ -2,7 +2,9 @@ import { createContext, ReactNode, useReducer } from "react"
 import { reducer, initialCart } from "./cartReducer"
 import { Product, CartData } from "../types"
 
-export const CartContext = createContext<Partial<CartData>>({})
+export const CartContext = createContext<Partial<CartData>>({
+    cart: []
+})
 
 export default function CartProvider({ children }: { children: ReactNode | ReactNode[] }) {
     const [cart, dispatch] = useReducer(reducer, initialCart)

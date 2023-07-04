@@ -7,6 +7,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import './App.css'
 import Cart from "./routes/cart/Cart";
+import Checkout from "./routes/checkout/Checkout";
 
 export default function App() {
   return (
@@ -23,6 +24,8 @@ export default function App() {
         <Route path="/products/:id" element={<ProductDescription />} />
 
         <Route path="/cart" element={<Cart />} />
+
+        <Route path="/checkout" element={<Checkout />} />
 
       </Routes>
 

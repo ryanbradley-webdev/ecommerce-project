@@ -1,34 +1,48 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
-import { PLACEHOLDER_ITEMS } from '../../placeholderData.ts'
 import { CartContext } from '../../contexts/CartContext.tsx'
+
+import { PLACEHOLDER_ITEMS } from '../../placeholderData.ts'
+import { Link } from 'react-router-dom'
 
 export default function CartIcon() {
     const { cart } = useContext(CartContext)
+
+    const [menuOpen, setMenuOpen] = useState(false)
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen)
+    }
 
     return (
         <Menu
             position='bottom-end'
             shadow='0px 3px 4px 3px rgba(0, 0, 0, 0.247)'
+            opened={menuOpen}
         >
 
             <Menu.Target>
 
-                <button className={styles.cart}>
+                <button
+                    className={styles.cart}
+                    onClick={toggleMenu}
+                >
                     
                     <IconShoppingCart />
 
-                    <Badge
-                        variant='filled'
-                        color='red'
-                        className={styles.badge}
-                        px={6}
-                    >
-                        {cart?.length || 0}
-                    </Badge>
+                    {cart && cart.length > 0 && (
+                        <Badge
+                            variant='filled'
+                            color='red'
+                            className={styles.badge}
+                            px={6}
+                        >
+                            {cart.length || 0}
+                        </Badge>)
+                    }
 
                 </button>
 
@@ -46,6 +60,7 @@ export default function CartIcon() {
                     <MenuItem
                         product={item}
                         key={item.id}
+                        toggleMenu={toggleMenu}
                     />
                 ))}
 
@@ -66,24 +81,40 @@ export default function CartIcon() {
 
                 <Stack>
 
-                    <Button
-                        variant='outline'
+                    <Link 
+                        to='/cart'
+                        onClick={toggleMenu}
                         style={{ 
                             width: 'calc(100% - 24px)', 
                             marginInline: 'auto' 
                         }}
                     >
-                        Go To Cart
-                    </Button>
+                        <Button
+                            variant='outline'
+                            style={{ 
+                                width: '100%'
+                            }}
+                        >
+                            Go To Cart
+                        </Button>
+                    </Link>
 
-                    <Button
+                    <Link
+                        to='/checkout'
+                        onClick={toggleMenu}
                         style={{ 
                             width: 'calc(100% - 24px)', 
                             marginInline: 'auto' 
                         }}
                     >
-                        Checkout
-                    </Button>
+                        <Button
+                            style={{ 
+                                width: '100%'
+                            }}
+                        >
+                            Checkout
+                        </Button>
+                    </Link>
 
                 </Stack>
 
@@ -93,23 +124,31 @@ export default function CartIcon() {
     )
 }
 
-function MenuItem({ product }: { product: Product }) {
+function MenuItem({ 
+    product,
+    toggleMenu
+}: { 
+    product: Product,
+    toggleMenu: () => void
+}) {
     return (
-        <Menu.Item
-            rightSection={product.name}
-            closeMenuOnClick
-            icon={
-                <img
-                    src={product.image}
-                    alt=""
-                    width={50}
-                    style={{ 
-                        aspectRatio: '1 / 1', 
-                        objectFit: 'cover', 
-                        borderRadius: '4px' 
-                    }}
-                />
-            }
-        ></Menu.Item>
+        <Link to={`/products/${product.id}`}>
+            <Menu.Item
+                rightSection={product.name}
+                onClick={toggleMenu}
+                icon={
+                    <img
+                        src={product.image}
+                        alt=""
+                        width={50}
+                        style={{ 
+                            aspectRatio: '1 / 1', 
+                            objectFit: 'cover', 
+                            borderRadius: '4px' 
+                        }}
+                    />
+                }
+            ></Menu.Item>
+        </Link>
     )
 }
