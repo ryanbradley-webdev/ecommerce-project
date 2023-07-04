@@ -1,10 +1,14 @@
+import { useContext } from 'react'
 import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
 import { PLACEHOLDER_ITEMS } from '../../placeholderData.ts'
+import { CartContext } from '../../contexts/CartContext.tsx'
 
 export default function CartIcon() {
+    const { cart } = useContext(CartContext)
+
     return (
         <Menu
             position='bottom-end'
@@ -23,7 +27,7 @@ export default function CartIcon() {
                         className={styles.badge}
                         px={6}
                     >
-                        3
+                        {cart?.length || 0}
                     </Badge>
 
                 </button>
@@ -35,7 +39,7 @@ export default function CartIcon() {
             >
 
                 <Menu.Label>
-                    3 Items
+                    {cart?.length || 0} Items
                 </Menu.Label>
 
                 {PLACEHOLDER_ITEMS.map(item => (

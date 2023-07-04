@@ -28,7 +28,7 @@ export default function NewItem({
                         alt=""
                         width='100%'
                         style={{ 
-                            aspectRatio: '1 / 1', 
+                            aspectRatio: '16 / 9', 
                             objectFit: 'cover' 
                         }}
                     />
@@ -57,9 +57,17 @@ export default function NewItem({
                     
                 <Button
                     fullWidth
+                    variant="outline"
                     mt={16}
                 >
                     Explore
+                </Button>
+                    
+                <Button
+                    fullWidth
+                    mt={16}
+                >
+                    Add to cart
                 </Button>
                 
             </Card>
