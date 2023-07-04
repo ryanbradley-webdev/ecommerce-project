@@ -39,6 +39,7 @@ export default function NewItem({
                     
                     <Text
                         weight={500}
+                        size={18}
                     >
                         {product.name}
                     </Text>
@@ -50,6 +51,14 @@ export default function NewItem({
                         {'$' + product.price}
                     </Text>
                     
+                </Group>
+
+                <Group>
+                    <Text
+                        size={14}
+                    >
+                        {product.brand}
+                    </Text>
                 </Group>
                     
                 <Button
