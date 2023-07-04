@@ -1,5 +1,5 @@
 import { useContext, useMemo, useState } from 'react'
-import { IconShoppingCart } from '@tabler/icons-react'
+import { IconShoppingCart, IconTrashX } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
@@ -9,14 +9,26 @@ import { Link } from 'react-router-dom'
 export default function CartIcon() {
     const { cart } = useContext(CartContext)
 
-    const itemCount = useMemo(() => {
+    const [itemCount, cartCost] = useMemo(() => {
         let count = 0
+        let cost = 0
 
         cart.forEach(item => {
             count += item.quantity
+            cost += Number(item.product.price) * item.quantity
         })
 
-        return count
+        const truncateCost = (string: string) => {
+            const decimalIdx = string.indexOf('.')
+
+            const newString = string.slice(0, decimalIdx + 3)
+
+            return newString.length < decimalIdx + 3 ? newString + '0' : newString
+        }
+
+        const costStr = cost % 1 === 0 ? cost.toString() + '.00' : truncateCost(cost.toString())
+
+        return [count, costStr]
     }, [cart])
 
     const [menuOpen, setMenuOpen] = useState(false)
@@ -66,7 +78,7 @@ export default function CartIcon() {
 
                 {cart.map(item => (
                     <MenuItem
-                        product={item.product}
+                        {...item}
                         key={item.product.id}
                         toggleMenu={toggleMenu}
                     />
@@ -76,15 +88,13 @@ export default function CartIcon() {
                     style={{
                         fontSize: '20px',
                         display: 'flex',
-                        justifyContent: 'flex-end',
-                        borderTop: '1px solid rgba(0, 0, 0, 0.247)'
+                        justifyContent: 'flex-end'
                     }}
                     pr={12}
-                    pt={10}
-                    my={12}
+                    py={10}
                 >
                     <Text weight={500}>Total:</Text>
-                    <Text>{'$234.54'}</Text>
+                    <Text>{'$' + cartCost}</Text>
                 </Group>
 
                 <Stack>
@@ -134,15 +144,31 @@ export default function CartIcon() {
 
 function MenuItem({ 
     product,
+    quantity,
     toggleMenu
 }: { 
     product: Product,
+    quantity: number,
     toggleMenu: () => void
 }) {
     return (
         <Link to={`/products/${product.id}`}>
             <Menu.Item
-                rightSection={product.name}
+                className={styles.product}
+                rightSection={
+                    <>
+                        <Text weight={500} size={16}>{product.name}</Text>
+                        <div className={styles.product_data}>
+                            <Text>
+                                &times;{quantity}
+                            </Text>
+                            <p>
+                                <IconTrashX size={20} color='var(--color-red)' />
+                                Remove
+                            </p>
+                        </div>
+                    </>
+                }
                 onClick={toggleMenu}
                 icon={
                     <img

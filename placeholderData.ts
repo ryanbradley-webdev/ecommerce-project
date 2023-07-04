@@ -13,7 +13,7 @@ export const PLACEHOLDER_ITEMS = [
     },
     {
         name: 'Addidas Puma-Jordans',
-        price: '4.20',
+        price: '4.00',
         image: '/pic3.jpg',
         id: '3'
     }

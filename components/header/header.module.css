@@ -46,3 +46,23 @@
     top: -25%;
     right: -50%;
 }
+
+.product {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.247);
+}
+
+.product > *:last-child {
+    flex-grow: 1;
+}
+
+.product_data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.product_data p {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--color-red);
+}
