@@ -1,10 +1,11 @@
-import { useContext, useMemo, useRef, useState } from 'react'
-import { IconShoppingCart, IconTrashX } from '@tabler/icons-react'
+import { useContext, useMemo, useState } from 'react'
+import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
 import { Product } from '../../types'
 import { CartContext } from '../../contexts/CartContext.tsx'
 import { Link } from 'react-router-dom'
+import RemoveBtn from '../RemoveBtn.tsx'
 
 export default function CartIcon() {
     const { cart } = useContext(CartContext)
@@ -152,19 +153,7 @@ function MenuItem({
     product: Product,
     quantity: number,
     toggleMenu: () => void
-}) {
-    const { removeItemFromCart } = useContext(CartContext)
-
-    const trashRef = useRef<HTMLDivElement>(null)
-
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement, MouseEvent>, id: string) => {
-            e.stopPropagation()
-
-            e.preventDefault()
-
-            removeItemFromCart(id)
-    }
-    
+}) {    
     return (
         <Menu.Item
             className={styles.product}
@@ -175,18 +164,9 @@ function MenuItem({
                         <Text>
                             &times;{quantity}
                         </Text>
-                        <div
-                            onClick={e => handleClick(e, product.id)}
-                            ref={trashRef}
-                            className={styles.remove}
-                        >
-                            <IconTrashX size={20} color='var(--color-red)' />
-                            <Text
-                                color='var(--color-red)'
-                            >
-                                Remove
-                            </Text>
-                        </div>
+                        <RemoveBtn
+                            id={product.id}
+                        />
                     </div>
                 </>
             }

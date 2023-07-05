@@ -84,11 +84,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-.remove {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: var(--color-red);
-    cursor: pointer;
-}

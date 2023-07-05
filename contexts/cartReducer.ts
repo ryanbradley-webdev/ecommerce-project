@@ -28,7 +28,10 @@ export const reducer = (state: Cart, action: Action): Cart => {
         case 'decrementItem':
             return state.map(item => {
                 if (item.product.id === action.payload) {
-                    item.quantity--
+                    return {
+                        ...item,
+                        quantity: item.quantity - 1
+                    }
                 }
 
                 return item
