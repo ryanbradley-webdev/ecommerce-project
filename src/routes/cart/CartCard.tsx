@@ -14,9 +14,11 @@ export default function CartCard({
     return (
         <Card
             display='flex'
+            radius={0}
             style={{
                 height: '125px',
-                gap: '12px'
+                gap: '12px',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.247)'
             }}
         >
 

@@ -19,9 +19,11 @@ body {
     position: relative;
     height: 100vh;
     height: 100dvh;
+    overflow-y: scroll;
 }
 
 main {
+    flex-grow: 1;
     padding-block: 32px;
 }
 
