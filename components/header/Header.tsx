@@ -18,12 +18,16 @@ export default function Header() {
                 Commerce City
             </span>
 
-            <CartIcon />
+            <div className={styles.icons} >
 
-            <Burger
-                opened={menuVisible}
-                onClick={toggleMenu}
-            />
+                <CartIcon />
+
+                <Burger
+                    opened={menuVisible}
+                    onClick={toggleMenu}
+                />
+
+            </div>
 
             <Menu
                 isVisible={menuVisible}
