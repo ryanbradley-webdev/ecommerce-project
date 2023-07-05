@@ -22,6 +22,8 @@ export type Action =
 
 export type CartData = {
     cart: Cart,
+    cartQuantity: number,
+    cartTotal: string,
     addItemToCart: (product: Product, quantity: number) => void,
     removeItemFromCart: (id: string) => void,
     increaseQuantity: (id: string) => void

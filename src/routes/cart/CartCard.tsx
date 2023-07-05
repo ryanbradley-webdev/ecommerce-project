@@ -2,6 +2,7 @@ import { Card, Group, Text } from '@mantine/core'
 import { Product } from '../../../types'
 import Quantity from './Quantity'
 import RemoveBtn from '../../../components/RemoveBtn'
+import { calculateCost } from '../../../lib/calculateCost'
 
 export default function CartCard({
     product,
@@ -15,7 +16,7 @@ export default function CartCard({
             display='flex'
             style={{
                 height: '125px',
-                gap: '24px'
+                gap: '12px'
             }}
         >
 
@@ -33,6 +34,9 @@ export default function CartCard({
 
             <Card.Section
                 m={0}
+                style={{
+                    flexGrow: '1'
+                }}
             >
                 <Group>
                 
@@ -47,6 +51,22 @@ export default function CartCard({
                 </Group>
 
                 <Group>
+
+                    <Text
+                        ml='auto'
+                        weight={500}
+                        size={20}
+                    >
+                        {'$' + calculateCost(product.price, quantity)}
+                    </Text>
+
+                </Group>
+
+                <Group
+                    style={{
+                        justifyContent: 'space-between'
+                    }}
+                >
 
                     <Quantity
                         quantity={quantity}

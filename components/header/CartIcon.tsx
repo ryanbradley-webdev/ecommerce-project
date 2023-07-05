@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useState } from 'react'
 import { IconShoppingCart } from '@tabler/icons-react'
 import styles from './header.module.css'
 import { Badge, Button, Group, Menu, Stack, Text } from '@mantine/core'
@@ -8,29 +8,7 @@ import { Link } from 'react-router-dom'
 import RemoveBtn from '../RemoveBtn.tsx'
 
 export default function CartIcon() {
-    const { cart } = useContext(CartContext)
-
-    const [itemCount, cartCost] = useMemo(() => {
-        let count = 0
-        let cost = 0
-
-        cart.forEach(item => {
-            count += item.quantity
-            cost += Number(item.product.price) * item.quantity
-        })
-
-        const truncateCost = (string: string) => {
-            const decimalIdx = string.indexOf('.')
-
-            const newString = string.slice(0, decimalIdx + 3)
-
-            return newString.length < decimalIdx + 3 ? newString + '0' : newString
-        }
-
-        const costStr = cost % 1 === 0 ? cost.toString() + '.00' : truncateCost(cost.toString())
-
-        return [count, costStr]
-    }, [cart])
+    const { cart, cartQuantity, cartTotal } = useContext(CartContext)
 
     const [menuOpen, setMenuOpen] = useState(false)
 
@@ -55,14 +33,14 @@ export default function CartIcon() {
                     
                     <IconShoppingCart />
 
-                    {itemCount > 0 && (
+                    {cartQuantity > 0 && (
                         <Badge
                             variant='filled'
                             color='red'
                             className={styles.badge}
                             px={6}
                         >
-                            {itemCount}
+                            {cartQuantity}
                         </Badge>)
                     }
 
@@ -75,7 +53,7 @@ export default function CartIcon() {
             >
 
                 <Menu.Label>
-                    {itemCount} Items
+                    {cartQuantity} Items
                 </Menu.Label>
 
                 {cart.map(item => (
@@ -97,7 +75,7 @@ export default function CartIcon() {
                     py={10}
                 >
                     <Text weight={500}>Total:</Text>
-                    <Text>{'$' + cartCost}</Text>
+                    <Text>{'$' + cartTotal}</Text>
                 </Group>
 
                 <Stack>
