@@ -58,14 +58,14 @@ export default function CartProvider({ children }: { children: ReactNode | React
 
             const [dollarsStr, centsStr] = item.product.price.split('.')
 
-            const dollars = sumDollars(dollarsStr, centsStr, item.quantity)
-            const cents = sumCents(centsStr, item.quantity)
-
-            totalDollars += dollars
-            totalCents += cents
+            totalDollars += Number(dollarsStr) * item.quantity
+            totalCents += Number(centsStr) * item.quantity
         })
 
-        return [count, costToString(totalDollars, totalCents)]
+        const dollars = sumDollars(totalDollars, totalCents)
+        const cents = sumCents(totalCents)
+
+        return [count, costToString(dollars, cents)]
     }, [cart])
 
     const value = {

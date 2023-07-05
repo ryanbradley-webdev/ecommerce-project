@@ -8,16 +8,20 @@ export const calculateCost = (price: string, quantity: number) => {
     return costToString(dollars, cents)
 }
 
-export const sumDollars = (dollarsStr: string, centsStr: string, quantity: number) => {
-    const dollars = Number(dollarsStr) * quantity
+export const sumDollars = (dollarsStr: string | number, centsStr: string | number, quantity?: number) => {
+    const multiplier = quantity || 1
 
-    const dollarsFromCents = Math.floor((Number(centsStr) * quantity) / 100)
+    const dollars = Number(dollarsStr) * multiplier
+
+    const dollarsFromCents = Math.floor((Number(centsStr) * multiplier) / 100)
 
     return dollars + dollarsFromCents
 }
 
-export const sumCents = (centsStr: string, quantity: number) => {
-    const cents = Number(centsStr) * quantity
+export const sumCents = (centsStr: string | number, quantity?: number) => {
+    const multiplier = quantity || 1
+
+    const cents = Number(centsStr) * multiplier
 
     return cents % 100
 }
