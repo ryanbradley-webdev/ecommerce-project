@@ -1,10 +1,17 @@
 import { Carousel } from "@mantine/carousel";
 import { Stack, MediaQuery, Text, Grid, Image } from "@mantine/core";
 import NewItem from "./NewItem";
+import { useQuery } from '@tanstack/react-query'
 
 import { PLACEHOLDER_ITEMS } from '../../../placeholderData.ts'
 
 export default function Home() {
+    const { data } = useQuery({
+        queryKey: ['products'],
+        queryFn: () => PLACEHOLDER_ITEMS,
+        placeholderData: PLACEHOLDER_ITEMS
+    })
+
     return (
         <main>
 
@@ -46,7 +53,7 @@ export default function Home() {
                         }}
                     >
 
-                        {PLACEHOLDER_ITEMS.map(product => (
+                        {data && data.map(product => (
                             <NewItem
                                 product={product}
                                 key={product.id}
