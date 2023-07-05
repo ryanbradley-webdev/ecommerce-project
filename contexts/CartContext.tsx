@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useReducer } from "react"
+import { createContext, ReactNode, useEffect, useMemo, useReducer } from "react"
 import { reducer, initialCart } from "./cartReducer"
 import { Product, CartData } from "../types"
 import { costToString, sumCents, sumDollars } from "../lib/calculateCost"
@@ -6,7 +6,9 @@ import { costToString, sumCents, sumDollars } from "../lib/calculateCost"
 export const CartContext = createContext({} as CartData)
 
 export default function CartProvider({ children }: { children: ReactNode | ReactNode[] }) {
-    const [cart, dispatch] = useReducer(reducer, initialCart)
+    const savedCart = localStorage.getItem('shoe-cart')
+
+    const [cart, dispatch] = useReducer(reducer, savedCart ? JSON.parse(savedCart) : initialCart)
 
     const addItemToCart = (product: Product, quantity: number) => {
         const targetItem = cart.find(item => item.product.id === product.id)
@@ -66,6 +68,10 @@ export default function CartProvider({ children }: { children: ReactNode | React
         const cents = sumCents(totalCents)
 
         return [count, costToString(dollars, cents)]
+    }, [cart])
+
+    useEffect(() => {
+        localStorage.setItem('shoe-cart', JSON.stringify(cart))
     }, [cart])
 
     const value = {

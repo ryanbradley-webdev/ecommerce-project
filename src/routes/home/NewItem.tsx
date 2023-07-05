@@ -1,6 +1,7 @@
 import { Carousel } from "@mantine/carousel";
-import { Button, Card, Group, Text } from "@mantine/core";
+import { Card, Group, Text } from "@mantine/core";
 import CartBtn from '../../../components/CartBtn'
+import ProductBtn from '../../../components/ProductBtn'
 import { Product } from "../../../types";
 
 export default function NewItem({
@@ -61,13 +62,9 @@ export default function NewItem({
                     </Text>
                 </Group>
                     
-                <Button
-                    fullWidth
-                    variant="outline"
-                    mt={16}
-                >
-                    Explore
-                </Button>
+                <ProductBtn
+                    id={product.id}
+                />
                     
                 <CartBtn
                     product={product}
