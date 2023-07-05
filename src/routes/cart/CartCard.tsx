@@ -3,6 +3,7 @@ import { Product } from '../../../types'
 import Quantity from './Quantity'
 import RemoveBtn from '../../../components/RemoveBtn'
 import { calculateCost } from '../../../lib/calculateCost'
+import styles from './cart.module.css'
 
 export default function CartCard({
     product,
@@ -15,44 +16,43 @@ export default function CartCard({
         <Card
             display='flex'
             radius={0}
-            style={{
-                height: '125px',
-                gap: '12px',
-                borderBottom: '1px solid rgba(0, 0, 0, 0.247)'
-            }}
+            className={styles.card}
         >
 
             <img 
                 src={product.image}
                 alt=''
-                width='auto'
-                height='100%'
-                style={{
-                    aspectRatio: '1 / 1',
-                    objectFit: 'cover',
-                    borderRadius: '4px'
-                }}
+                className={styles.image}
             />
 
-            <Card.Section
-                m={0}
+            <div
                 style={{
                     flexGrow: '1'
                 }}
             >
-                <Group>
+                <Group
+                    spacing={0}
+                >
                 
-                    <Text>
-                        {product.brand}
+                    <Text
+                        weight={500}
+                        size={20}
+                    >
+                        {product.name}
                     </Text>
 
-                    <Text>
-                        {product.name}
+                    <Text
+                        italic
+                        size={20}
+                    >
+                        &nbsp;- {product.brand}
                     </Text>
 
                 </Group>
 
-                <Group>
+                <Group
+                    maw={500}
+                >
 
                     <Text
                         ml='auto'
@@ -66,7 +66,8 @@ export default function CartCard({
 
                 <Group
                     style={{
-                        justifyContent: 'space-between'
+                        justifyContent: 'space-between',
+                        maxWidth: '500px'
                     }}
                 >
 
@@ -81,7 +82,7 @@ export default function CartCard({
 
                 </Group>
 
-            </Card.Section>
+            </div>
 
         </Card>
     )
