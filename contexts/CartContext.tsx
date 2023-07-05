@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useMemo, useReducer } from "react"
 import { reducer, initialCart } from "./cartReducer"
 import { Product, CartData } from "../types"
-import { truncateCost } from "../lib/calculateCost"
+import { costToString, sumCents, sumDollars } from "../lib/calculateCost"
 
 export const CartContext = createContext({} as CartData)
 
@@ -50,16 +50,22 @@ export default function CartProvider({ children }: { children: ReactNode | React
 
     const [cartQuantity, cartTotal] = useMemo(() => {
         let count = 0
-        let cost = 0
+        let totalDollars = 0
+        let totalCents = 0
 
         cart.forEach(item => {
             count += item.quantity
-            cost += Number(item.product.price) * item.quantity
+
+            const [dollarsStr, centsStr] = item.product.price.split('.')
+
+            const dollars = sumDollars(dollarsStr, centsStr, item.quantity)
+            const cents = sumCents(centsStr, item.quantity)
+
+            totalDollars += dollars
+            totalCents += cents
         })
 
-        const costStr = cost % 1 === 0 ? cost.toString() + '.00' : truncateCost(cost.toString())
-
-        return [count, costStr]
+        return [count, costToString(totalDollars, totalCents)]
     }, [cart])
 
     const value = {
