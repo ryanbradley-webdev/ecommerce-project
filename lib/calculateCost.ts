@@ -6,7 +6,7 @@ export const calculateCost = (price: string, quantity: number) => {
     return costStr
 }
 
-const truncateCost = (string: string) => {
+export const truncateCost = (string: string) => {
     const decimalIdx = string.indexOf('.')
 
     const newString = string.slice(0, decimalIdx + 3)
