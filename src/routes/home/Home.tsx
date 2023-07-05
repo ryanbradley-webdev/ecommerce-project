@@ -68,27 +68,64 @@ export default function Home() {
                     </Text>
 
                     <Grid
-                        columns={2}
+                        columns={6}
                         align="center"
                         gutter={24}
+                        my={24}
                     >
-                        <Grid.Col span={1}>
-                            <Image src='/nike.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/nike.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Image src='/addidas.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/addidas.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Image src='/skechers.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/skechers.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Image src='/vans.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/vans.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Image src='/new-balance.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/new-balance.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
-                        <Grid.Col span={1}>
-                            <Image src='/converse.png' alt="" width={150} height='auto' mx='auto' style={{ display: 'block' }} />
+                        <Grid.Col
+                            xs={3}
+                            sm={3}
+                            md={2}
+                            lg={2}
+                            xl={1}
+                        >
+                            <Image src='/converse.png' alt="" width={120} height='auto' mx='auto' style={{ display: 'block' }} />
                         </Grid.Col>
                     </Grid>
 
