@@ -1,0 +1,14 @@
+.wrapper {
+    display: grid;
+    place-items: center;
+}
+
+@media screen and (min-width: 769px) {
+    .wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .comments {
+        grid-column: 1 / span 2;
+    }
+}

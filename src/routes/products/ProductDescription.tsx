@@ -1,136 +1,119 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { PLACEHOLDER_ITEMS } from '../../../placeholderData'
-import { Flex, Image, Title, Text, MediaQuery, Stack, Grid, Rating } from '@mantine/core'
+import { PLACEHOLDER_ITEMS, PLACEHOLDER_REVIEWS } from '../../../placeholderData'
+import { Image, Title, Text, MediaQuery, Stack, Grid, Rating } from '@mantine/core'
 import AddToCart from './AddToCart'
+import styles from './products.module.css'
+import Comments from './Comments'
 
 export default function ProductDescription() {
     const { id } = useParams()
 
-    const { data } = useQuery({
-        queryKey: ['products'],
-        queryFn: () => PLACEHOLDER_ITEMS,
-        placeholderData: PLACEHOLDER_ITEMS
-    })
+    const product = useQuery({
+        queryKey: [`product-${id}`],
+        queryFn: () => PLACEHOLDER_ITEMS.find(product => product.id == id)
+    }).data
 
-    const product = data ? data.find(product => product.id === id) : null
+    const reviewCount = useQuery({
+        queryKey: [`review-count-${id}`],
+        queryFn: () => PLACEHOLDER_REVIEWS.filter(review => review.productId === id).length
+    }).data
 
     return (
         <main>
             {
                 product ? (
-                    <>
+                    <div className={styles.wrapper}>
 
-                        <MediaQuery
-                            query='(max-width: 480px)'
-                            styles={{
-                                flexDirection: 'column-reverse',
-                                alignItems: 'center'
-                            }}
+                        <Image src={product.image} alt='' px='10%' radius={8} />
+
+                        <Grid
+                            px={16}
+                            mx={0}
+                            my={24}
+                            align='center'
+                            justify='center'
                         >
 
-                            <Flex
-                                align='flex-end'
-                                gap={12}
+                            <MediaQuery
+                                query='(max-width: 480px)'
+                                styles={{
+                                    alignItems: 'center'
+                                }}
                             >
-
-                                <Image src={product.image} alt='' height={250} width={250} radius={8} />
-
-                                <MediaQuery
-                                    query='(max-width: 480px)'
-                                    styles={{
-                                        textAlign: 'center'
-                                    }}
+        
+                                <Stack
+                                    h='fit-content'
+                                    spacing={0}
+                                    my={24}
                                 >
-
-                                    <Stack
-                                        h='fit-content'
-                                        spacing={0}
-                                    >
-
-                                        <Text>
-                                            {product.brand}
-                                        </Text>
-
-                                        <Title>
-                                            {product.name}
-                                        </Title>
-
-                                    </Stack>
-
-                                </MediaQuery>
-
-                            </Flex>
-
-                        </MediaQuery>
-
-                        <MediaQuery
-                            query='(max-width: 480px)'
-                            styles={{
-                                alignItems: 'center'
-                            }}
-                        >
-
-                            <Grid
-                                px={16}
-                                mx={0}
-                                my={24}
-                                align='center'
-                                justify='center'
-                            >
-
-                                <Grid.Col>
-
+        
                                     <Text>
-                                        {product.description}
+                                        {product.brand}
                                     </Text>
+        
+                                    <Title>
+                                        {product.name}
+                                    </Title>
+        
+                                </Stack>
+        
+                            </MediaQuery>
 
-                                </Grid.Col>
+                            <Grid.Col>
 
-                                <Grid.Col
-                                    display='flex'
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center'
-                                    }}
+                                <Text>
+                                    {product.description}
+                                </Text>
+
+                            </Grid.Col>
+
+                            <Grid.Col
+                                display='flex'
+                                style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+
+                                <Rating
+                                    fractions={10}
+                                    value={product.rating}
+                                />
+
+                                {product.rating}&nbsp;
+
+                                <Text
+                                    weight={300}
+                                    ml={24}
                                 >
+                                    ({reviewCount || 0} reviews)
+                                </Text>
 
-                                    <Rating
-                                        fractions={10}
-                                        value={product.rating}
-                                    />
+                            </Grid.Col>
 
-                                    {product.rating}&nbsp;
+                            <Grid.Col
+                                display='flex'
+                                style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '24px'
+                                }}
+                            >
 
-                                    <Text
-                                        weight={300}
-                                        ml={24}
-                                    >
-                                        (13 reviews)
-                                    </Text>
+                                <AddToCart
+                                    product={product}
+                                />
 
-                                </Grid.Col>
+                            </Grid.Col>
 
-                                <Grid.Col
-                                    display='flex'
-                                    style={{
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '24px'
-                                    }}
-                                >
+                        </Grid>
 
-                                    <AddToCart
-                                        product={product}
-                                    />
+                        <Comments
+                            id={product.id}
+                        />
 
-                                </Grid.Col>
-
-                            </Grid>
-
-                        </MediaQuery>
-
-                    </>
+                    </div>
                 ) : (
                     <h1>hello</h1>
                 )

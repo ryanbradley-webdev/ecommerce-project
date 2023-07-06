@@ -6,7 +6,6 @@ export default function ProductBtn({ id }: { id: string }) {
         <Link to={`/products/${id}`}>
             <Button
                 fullWidth
-                mt={16}
                 variant='outline'
             >
                 Explore

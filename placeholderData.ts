@@ -1,4 +1,6 @@
-export const PLACEHOLDER_ITEMS = [
+import { Product, Review } from "./types"
+
+export const PLACEHOLDER_ITEMS: Product[] = [
     {
         name: 'Daddios',
         brand: 'New Balance',
@@ -26,4 +28,80 @@ export const PLACEHOLDER_ITEMS = [
         rating: 3.9,
         id: '3'
     }
+]
+
+
+export const PLACEHOLDER_REVIEWS: Review[] = [
+    {
+        id: '123',
+        productId: '1',
+        date: '7/06/2023',
+        name: 'John',
+        review: 'These shoes SUCK.',
+        rating: 2.4
+    },
+    {
+        id: '124',
+        productId: '1',
+        date: '7/06/2023',
+        name: 'Pete',
+        review: 'Love them.',
+        rating: 4.6
+    },
+    {
+        id: '125',
+        productId: '1',
+        date: '7/06/2023',
+        name: 'Mary',
+        review: 'Decent, but overpriced.',
+        rating: 3.4
+    },
+    {
+        id: '126',
+        productId: '2',
+        date: '7/06/2023',
+        name: 'Jane',
+        review: 'Best shoes I\'ve ever owned!!',
+        rating: 4.8
+    },
+    {
+        id: '127',
+        productId: '2',
+        date: '7/06/2023',
+        name: 'Craig',
+        review: 'Worst shoes ever made. Do not even THINK about picking up a pair.',
+        rating: 1.2
+    },
+    {
+        id: '128',
+        productId: '2',
+        date: '7/06/2023',
+        name: 'Guy',
+        review: 'Great daily wear.',
+        rating: 4.0
+    },
+    {
+        id: '129',
+        productId: '3',
+        date: '7/06/2023',
+        name: 'Lucy',
+        review: 'I will never buy another shoe again.',
+        rating: 4.9
+    },
+    {
+        id: '130',
+        productId: '3',
+        date: '7/06/2023',
+        name: 'Frank',
+        review: 'Great quality, lacking on comfort.',
+        rating: 3.7
+    },
+    {
+        id: '131',
+        productId: '3',
+        date: '7/06/2023',
+        name: 'Don',
+        review: 'They aight.',
+        rating: 3.6
+    },
 ]
