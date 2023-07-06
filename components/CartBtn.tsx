@@ -17,7 +17,6 @@ export default function CartBtn({ product, quantity }: { product: Product, quant
     return (
         <Button
             fullWidth
-            mt={16}
             onClick={handleClick}
         >
             { itemAdded ? 'Added to cart!' : 'Add to cart' }

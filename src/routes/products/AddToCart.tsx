@@ -1,16 +1,13 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Quantity from "../../../components/Quantity";
-import { Button } from "@mantine/core";
-import { CartContext } from "../../../contexts/CartContext";
 import { Product } from "../../../types";
+import CartBtn from "../../../components/CartBtn";
 
 export default function AddToCart({
     product
 }: {
     product: Product
 }) {
-    const { addItemToCart } = useContext(CartContext)
-
     const [quantity, setQuantity] = useState(1)
 
     const addOne = () => {
@@ -23,12 +20,8 @@ export default function AddToCart({
         }
     }
 
-    const addToCart = () => {
-        addItemToCart(product, quantity)
-    }
-
     return (
-        <div>
+        <>
             
             <Quantity
                 quantity={quantity}
@@ -37,12 +30,11 @@ export default function AddToCart({
                 disabled={quantity <= 1}
             />
 
-            <Button
-                onClick={addToCart}
-            >
-                Add To Cart
-            </Button>
+            <CartBtn
+                product={product}
+                quantity={quantity}
+            />
 
-        </div>
+        </>
     )
 }

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { PLACEHOLDER_ITEMS } from '../../../placeholderData'
-import { Flex, Image, Title, Text, MediaQuery, Stack, Grid } from '@mantine/core'
+import { Flex, Image, Title, Text, MediaQuery, Stack, Grid, Rating } from '@mantine/core'
 import AddToCart from './AddToCart'
 
 export default function ProductDescription() {
@@ -75,15 +75,56 @@ export default function ProductDescription() {
                                 px={16}
                                 mx={0}
                                 my={24}
+                                align='center'
+                                justify='center'
                             >
 
-                                <Text>
-                                    {product.description}
-                                </Text>
+                                <Grid.Col>
 
-                                <AddToCart
-                                    product={product}
-                                />
+                                    <Text>
+                                        {product.description}
+                                    </Text>
+
+                                </Grid.Col>
+
+                                <Grid.Col
+                                    display='flex'
+                                    style={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                    }}
+                                >
+
+                                    <Rating
+                                        fractions={10}
+                                        value={product.rating}
+                                    />
+
+                                    {product.rating}&nbsp;
+
+                                    <Text
+                                        weight={300}
+                                        ml={24}
+                                    >
+                                        (13 reviews)
+                                    </Text>
+
+                                </Grid.Col>
+
+                                <Grid.Col
+                                    display='flex'
+                                    style={{
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '24px'
+                                    }}
+                                >
+
+                                    <AddToCart
+                                        product={product}
+                                    />
+
+                                </Grid.Col>
 
                             </Grid>
 

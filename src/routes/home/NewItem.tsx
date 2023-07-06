@@ -61,14 +61,24 @@ export default function NewItem({
                         {product.brand}
                     </Text>
                 </Group>
+
+                <Card.Section
+                    px={16}
+                    display='grid'
+                    style={{
+                        rowGap: '16px'
+                    }}
+                >
                     
-                <ProductBtn
-                    id={product.id}
-                />
-                    
-                <CartBtn
-                    product={product}
-                />
+                    <ProductBtn
+                        id={product.id}
+                    />
+                        
+                    <CartBtn
+                        product={product}
+                    />
+
+                </Card.Section>
                 
             </Card>
             
