@@ -3,6 +3,7 @@ export type Product = {
     brand: string,
     description: string,
     image: string,
+    rating: number,
     price: string,
     id: string
 }
@@ -17,7 +18,7 @@ export type Cart = CartItem[] | []
 export type Action = 
     | { type: 'addItem', payload: CartItem }
     | { type: 'removeItem', payload: string }
-    | { type: 'incrementItem', payload: string }
+    | { type: 'incrementItem', payload: { id: string, quantity: number | undefined } }
     | { type: 'decrementItem', payload: string }
 
 export type CartData = {

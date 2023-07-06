@@ -15,10 +15,10 @@ export const reducer = (state: Cart, action: Action): Cart => {
 
         case 'incrementItem':
             return state.map(item => {
-                if (item.product.id === action.payload) {
+                if (item.product.id === action.payload.id) {
                     return {
                         ...item,
-                        quantity: item.quantity + 1
+                        quantity: item.quantity + (action.payload.quantity || 1)
                     }
                 }
 

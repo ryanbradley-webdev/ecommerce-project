@@ -1,9 +1,11 @@
 import { Card, Group, Text } from '@mantine/core'
 import { Product } from '../../../types'
-import Quantity from './Quantity'
+import Quantity from '../../../components/Quantity'
 import RemoveBtn from '../../../components/RemoveBtn'
 import { calculateCost } from '../../../lib/calculateCost'
 import styles from './cart.module.css'
+import { useContext } from 'react'
+import { CartContext } from '../../../contexts/CartContext'
 
 export default function CartCard({
     product,
@@ -12,6 +14,20 @@ export default function CartCard({
     product: Product,
     quantity: number
 }) {
+    const { increaseQuantity, decreaseQuantity, removeItemFromCart } = useContext(CartContext)
+
+    const addOne = () => {
+        increaseQuantity(product.id)
+    }
+
+    const subtractOne = () => {
+        if (quantity === 1) {
+            removeItemFromCart(product.id)
+        } else {
+            decreaseQuantity(product.id)
+        }
+    }
+
     return (
         <Card
             display='flex'
@@ -73,7 +89,8 @@ export default function CartCard({
 
                     <Quantity
                         quantity={quantity}
-                        id={product.id}
+                        addOne={addOne}
+                        subtractOne={subtractOne}
                     />
 
                     <RemoveBtn

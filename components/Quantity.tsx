@@ -1,29 +1,16 @@
 import { Button, Text } from '@mantine/core'
-import { useContext } from 'react'
-import { CartContext } from '../../../contexts/CartContext'
 
 export default function Quantity({
     quantity,
-    id
+    addOne,
+    subtractOne,
+    disabled
 }: {
     quantity: number,
-    id: string
+    addOne: () => void,
+    subtractOne: () => void,
+    disabled?: boolean
 }) {
-
-    const { increaseQuantity, decreaseQuantity, removeItemFromCart } = useContext(CartContext)
-
-    const addOne = () => {
-        increaseQuantity(id)
-    }
-
-    const subtractOne = () => {
-        if (quantity === 1) {
-            removeItemFromCart(id)
-        } else {
-            decreaseQuantity(id)
-        }
-    }
-
     return (
         <div
             style={{
@@ -44,6 +31,7 @@ export default function Quantity({
                 }}
                 onClick={subtractOne}
                 variant='outline'
+                disabled={disabled}
             >
                 -
             </Button>

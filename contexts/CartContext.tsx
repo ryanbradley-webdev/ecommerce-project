@@ -14,7 +14,7 @@ export default function CartProvider({ children }: { children: ReactNode | React
         const targetItem = cart.find(item => item.product.id === product.id)
 
         if (targetItem) {
-            return increaseQuantity(product.id)
+            return increaseQuantity(product.id, quantity)
         } else {
             dispatch({
                 type: 'addItem',
@@ -30,10 +30,10 @@ export default function CartProvider({ children }: { children: ReactNode | React
         })
     }
 
-    const increaseQuantity = (id: string) => {
+    const increaseQuantity = (id: string, quantity?: number) => {
         dispatch({
             type: 'incrementItem',
-            payload: id
+            payload: { id, quantity }
         })
     }
 
