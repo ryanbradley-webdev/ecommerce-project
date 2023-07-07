@@ -1,0 +1,47 @@
+.img,
+.title,
+.subtitle,
+.text {
+    animation: fade-in-out 1s ease-in-out infinite alternate;
+}
+
+.title,
+.subtitle,
+.text {
+    border-radius: 4px;
+    margin-block: 9px;
+}
+
+.img {
+    aspect-ratio: 1 / 1;
+    width: 80%;
+    margin-inline: 10%;
+    border-radius: 8px;
+}
+
+.title {
+    height: 34px;
+    width: 200px;
+}
+
+.subtitle {
+    height: 16px;
+    width: 50px;
+}
+
+.text {
+    width: 100%;
+    height: 16px;
+}
+
+.text:last-of-type {
+    width: 150px;
+}
+
+@keyframes fade-in-out {
+    from {
+        background-color: rgb(207, 207, 207);
+    } to {
+        background-color: rgb(240, 240, 240);
+    }
+}

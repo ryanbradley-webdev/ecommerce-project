@@ -5,6 +5,11 @@ import AddToCart from './AddToCart'
 import styles from './products.module.css'
 import Comments from './Comments'
 import { getProductById } from '../../../lib/getProductById'
+import { loadingProduct } from './loadingProduct'
+import ImgSkeleton from '../../../components/skeletons/ImgSkeleton'
+import TitleSkeleton from '../../../components/skeletons/TitleSkeleton'
+import SubtitleSkeleton from '../../../components/skeletons/SubtitleSkeleton'
+import TextSkeleton from '../../../components/skeletons/TextSkeleton'
 
 import { PLACEHOLDER_REVIEWS } from '../../../placeholderData'
 
@@ -13,7 +18,8 @@ export default function ProductDescription() {
 
     const product = useQuery({
         queryKey: [`product-${id}`],
-        queryFn: () => getProductById(id)
+        queryFn: () => getProductById(id),
+        placeholderData: loadingProduct
     }).data
 
     const reviewCount = useQuery({
@@ -27,7 +33,16 @@ export default function ProductDescription() {
                 product ? (
                     <div className={styles.wrapper}>
 
-                        <Image src={product.image} alt='' px='10%' radius={8} />
+                        {product.image === 'loading' ? (
+
+                                <ImgSkeleton /> 
+
+                            ) : (
+
+                                <Image src={product.image} alt='' px='10%' radius={8} />
+
+                            )
+                        }
 
                         <Grid
                             px={16}
@@ -50,13 +65,19 @@ export default function ProductDescription() {
                                     my={24}
                                 >
         
-                                    <Text>
-                                        {product.brand}
-                                    </Text>
+                                    {product.brand === 'loading' ? (
+                                            <SubtitleSkeleton />
+                                        ) : (
+                                            <Text>{product.brand}</Text>
+                                        )
+                                    }
         
-                                    <Title>
-                                        {product.name}
-                                    </Title>
+                                    {product.name === 'loading' ? (
+                                            <TitleSkeleton />
+                                        ) : (
+                                            <Title>{product.name}</Title>
+                                        )
+                                    }
         
                                 </Stack>
         
@@ -64,9 +85,12 @@ export default function ProductDescription() {
 
                             <Grid.Col>
 
-                                <Text>
-                                    {product.description}
-                                </Text>
+                                {product.description === 'loading' ? (
+                                        <TextSkeleton />
+                                    ) : (
+                                        <Text>{product.description}</Text>
+                                    )
+                                }
 
                             </Grid.Col>
 
