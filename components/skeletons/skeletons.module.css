@@ -9,19 +9,11 @@
 .subtitle,
 .text {
     border-radius: 4px;
-    margin-block: 9px;
-}
-
-.img {
-    aspect-ratio: 1 / 1;
-    width: 80%;
-    margin-inline: 10%;
-    border-radius: 8px;
+    margin-block: 6px;
 }
 
 .title {
-    height: 34px;
-    width: 200px;
+    width: 100px;
 }
 
 .subtitle {
@@ -34,7 +26,7 @@
     height: 16px;
 }
 
-.text:last-of-type {
+.text:nth-of-type(3) {
     width: 150px;
 }
 

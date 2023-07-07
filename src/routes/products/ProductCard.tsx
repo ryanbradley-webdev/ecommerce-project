@@ -2,6 +2,10 @@ import { Card, Group, Text } from "@mantine/core";
 import CartBtn from "../../../components/CartBtn";
 import { Product } from "../../../types";
 import ProductBtn from "../../../components/ProductBtn";
+import ImgSkeleton from "../../../components/skeletons/ImgSkeleton";
+import TitleSkeleton from "../../../components/skeletons/TitleSkeleton";
+import SubtitleSkeleton from "../../../components/skeletons/SubtitleSkeleton";
+import TextSkeleton from "../../../components/skeletons/TextSkeleton";
 
 export default function ProductCard({ 
     product
@@ -18,15 +22,24 @@ export default function ProductCard({
         
         <Card.Section>
             
-            <img
-                src={product.image}
-                alt=""
-                width='100%'
-                style={{ 
-                    aspectRatio: '16 / 9', 
-                    objectFit: 'cover' 
-                }}
-            />
+            {product.image === 'loading' ? (
+                    <ImgSkeleton
+                        aspectRatio="16 / 9"
+                        width='100%'
+                        mx='0'
+                    />
+                ) : (
+                    <img
+                        src={product.image}
+                        alt=""
+                        width='100%'
+                        style={{ 
+                            aspectRatio: '16 / 9', 
+                            objectFit: 'cover' 
+                        }}
+                    />
+                )
+            }
             
         </Card.Section>
         
@@ -35,39 +48,67 @@ export default function ProductCard({
             mt={16}
         >
             
-            <Text
-                weight={500}
-                size={18}
-            >
-                {product.name}
-            </Text>
+            {product.name === 'loading' ? (
+                    <TitleSkeleton
+                        height='20px'
+                    />
+                ) : (
+                    <Text
+                        weight={500}
+                        size={18}
+                    >
+                        {product.name}
+                    </Text>
+                )
+            }
 
-            <Text
-                color="var(--color-green)"
-                weight={500}
-            >
-                {'$' + product.price}
-            </Text>
+            {product.price === 'loading' ? (
+                    <SubtitleSkeleton />
+                ) : (
+                    <Text
+                        color="var(--color-green)"
+                        weight={500}
+                    >
+                        {'$' + product.price}
+                    </Text>
+                )
+            }
             
         </Group>
 
         <Group>
-            <Text
-                size={14}
-            >
-                {product.brand}
-            </Text>
+            
+            {product.brand === 'loading' ? (
+                    <SubtitleSkeleton />
+                ) : (
+                    <Text
+                        size={14}
+                    >
+                        {product.brand}
+                    </Text>
+                )
+            }
+
         </Group>
 
         <Group
             mt={8}
         >
-            <Text
-                color="var(--color-text-grey)"
-                truncate
-            >
-                {product.description}
-            </Text>
+            
+            {product.description === 'loading' ? (
+                    <TextSkeleton
+                        multiple={1}
+                    />
+                ) : (
+                    <Text
+                        color="var(--color-text-grey)"
+                        truncate
+                    >
+                        {product.description}
+                    </Text>
+                )
+            }
+
         </Group>
         
         <Card.Section

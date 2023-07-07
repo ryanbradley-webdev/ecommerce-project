@@ -35,7 +35,12 @@ export default function ProductDescription() {
 
                         {product.image === 'loading' ? (
 
-                                <ImgSkeleton /> 
+                                <ImgSkeleton
+                                    aspectRatio='1 / 1'
+                                    width='80%'
+                                    mx='10%'
+                                    radius
+                                /> 
 
                             ) : (
 
@@ -73,7 +78,9 @@ export default function ProductDescription() {
                                     }
         
                                     {product.name === 'loading' ? (
-                                            <TitleSkeleton />
+                                            <TitleSkeleton
+                                                height='34px'
+                                            />
                                         ) : (
                                             <Title>{product.name}</Title>
                                         )

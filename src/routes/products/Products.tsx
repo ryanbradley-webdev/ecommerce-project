@@ -1,15 +1,15 @@
 import { Grid, MultiSelect } from "@mantine/core";
-import { PLACEHOLDER_ITEMS } from "../../../placeholderData";
 import { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../../../lib/getProducts";
+import { loadingProductArr } from "./loadingProduct";
 
 export default function Products() {
     const { data } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
-        placeholderData: PLACEHOLDER_ITEMS
+        placeholderData: loadingProductArr
     })
     
     const brands = data ? new Set(data.map(item => item.brand)) : []
