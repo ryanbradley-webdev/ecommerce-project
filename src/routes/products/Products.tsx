@@ -3,11 +3,12 @@ import { PLACEHOLDER_ITEMS } from "../../../placeholderData";
 import { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "../../../lib/getProducts";
 
 export default function Products() {
     const { data } = useQuery({
         queryKey: ['products'],
-        queryFn: () => PLACEHOLDER_ITEMS,
+        queryFn: getProducts,
         placeholderData: PLACEHOLDER_ITEMS
     })
     
@@ -24,11 +25,11 @@ export default function Products() {
 
     useEffect(() => {
         if (selectedBrands.length === 0) {
-            setFilteredProducts(PLACEHOLDER_ITEMS)
+            setFilteredProducts(data)
         } else {
-            setFilteredProducts(PLACEHOLDER_ITEMS.filter(item => selectedBrands.includes(item.brand)))
+            data && setFilteredProducts(data.filter(item => selectedBrands.includes(item.brand)))
         }
-    }, [selectedBrands])
+    }, [selectedBrands, data])
     
     return (
         <main>

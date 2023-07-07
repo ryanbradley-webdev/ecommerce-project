@@ -1,17 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { PLACEHOLDER_ITEMS, PLACEHOLDER_REVIEWS } from '../../../placeholderData'
 import { Image, Title, Text, MediaQuery, Stack, Grid, Rating } from '@mantine/core'
 import AddToCart from './AddToCart'
 import styles from './products.module.css'
 import Comments from './Comments'
+import { getProductById } from '../../../lib/getProductById'
+
+import { PLACEHOLDER_REVIEWS } from '../../../placeholderData'
 
 export default function ProductDescription() {
     const { id } = useParams()
 
     const product = useQuery({
         queryKey: [`product-${id}`],
-        queryFn: () => PLACEHOLDER_ITEMS.find(product => product.id == id)
+        queryFn: () => getProductById(id)
     }).data
 
     const reviewCount = useQuery({
