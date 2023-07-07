@@ -3,14 +3,13 @@ import { Stack, MediaQuery, Text, Grid, Image } from "@mantine/core";
 import NewItem from "./NewItem";
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '../../../lib/getProducts.ts'
-
-import { PLACEHOLDER_ITEMS } from '../../../placeholderData.ts'
+import { loadingProductArr } from "../products/loadingProduct.ts";
 
 export default function Home() {
     const { data } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
-        placeholderData: PLACEHOLDER_ITEMS
+        placeholderData: loadingProductArr.slice(0, 3)
     })
 
     return (
