@@ -5,13 +5,12 @@ import AddToCart from './AddToCart'
 import styles from './products.module.css'
 import Comments from './Comments'
 import { getProductById } from '../../../lib/getProductById'
+import { getReviewCountById } from '../../../lib/getReviewCountById'
 import { loadingProduct } from './loadingProduct'
 import ImgSkeleton from '../../../components/skeletons/ImgSkeleton'
 import TitleSkeleton from '../../../components/skeletons/TitleSkeleton'
 import SubtitleSkeleton from '../../../components/skeletons/SubtitleSkeleton'
 import TextSkeleton from '../../../components/skeletons/TextSkeleton'
-
-import { PLACEHOLDER_REVIEWS } from '../../../placeholderData'
 
 export default function ProductDescription() {
     const { id } = useParams()
@@ -22,10 +21,10 @@ export default function ProductDescription() {
         placeholderData: loadingProduct
     })
 
-    const reviewCount = useQuery({
+    const { data: reviewCount} = useQuery({
         queryKey: [`review-count-${id}`],
-        queryFn: () => PLACEHOLDER_REVIEWS.filter(review => review.productId === id).length
-    }).data
+        queryFn: () => getReviewCountById(id)
+    })
 
     return (
         <main>
@@ -112,6 +111,7 @@ export default function ProductDescription() {
                                 <Rating
                                     fractions={10}
                                     value={product.rating || 0}
+                                    readOnly
                                 />
 
                                 &nbsp;{product.rating || 0} stars&nbsp;
@@ -120,7 +120,7 @@ export default function ProductDescription() {
                                     weight={300}
                                     ml={24}
                                 >
-                                    ({reviewCount || 0} reviews)
+                                    ({reviewCount || 0} review{reviewCount !== 1 && 's'})
                                 </Text>
 
                             </Grid.Col>

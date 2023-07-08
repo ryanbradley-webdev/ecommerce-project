@@ -1,18 +1,25 @@
-import { Container, Input, Rating, Stack, Text } from "@mantine/core";
+import { Button, Container, Input, Rating, Stack, Text } from "@mantine/core";
 import styles from './products.module.css'
 import { useQuery } from "@tanstack/react-query";
-import { PLACEHOLDER_REVIEWS } from "../../../placeholderData";
+import { getReviewsById } from "../../../lib/getReviewsbyId";
 import { Review } from "../../../types";
+import { useState } from "react";
 
 export default function Comments({
     id
 }: {
     id: string
 }) {
-    const reviews = useQuery({
+    const [userRating, setUserRating] = useState(0)
+
+    const { data: reviews } = useQuery({
         queryKey: [`reviews-${id}`],
-        queryFn: () => PLACEHOLDER_REVIEWS.filter(review => review.productId === id)
-    }).data
+        queryFn: () => getReviewsById(id)
+    })
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+    }
 
     return (
         <Stack
@@ -21,15 +28,54 @@ export default function Comments({
             w='100%'
             maw={500}
         >
-            
-            <Input.Wrapper
-                px={16}
-                label='Let others know what you think of these shoes.'
+
+            <form
+                action=""
+                onSubmit={handleSubmit}
             >
             
-                <Input />
+                <Input.Wrapper
+                    px={16}
+                    label='Let others know what you think of these shoes.'
+                    required
+                >
+                
+                    <Input
+                        required
+                    />
 
-            </Input.Wrapper>
+                </Input.Wrapper>
+
+                <Input.Wrapper
+                    w='fit-content'
+                    mx='auto'
+                    my={24}
+                    label='Rate this product!'
+                    display='flex'
+                    style={{
+                        alignItems: 'center',
+                        gap: '16px'
+                    }}
+                    required
+                >
+                
+                    <Rating
+                        size="lg"
+                        value={userRating}
+                        onChange={setUserRating}
+                    />
+                
+                </Input.Wrapper>
+
+                <Button
+                    w='calc(100% - 32px)'
+                    mx={16}
+                    mt={12}
+                >
+                    Add Review
+                </Button>
+
+            </form>
 
             {reviews?.length ? (
                 reviews.map(review => (
@@ -72,6 +118,7 @@ function Comment({
             <Rating
                 fractions={10}
                 value={review.rating}
+                readOnly
             />
 
             <Text
