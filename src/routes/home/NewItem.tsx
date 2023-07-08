@@ -19,7 +19,7 @@ export default function NewItem({
                 radius={8} 
                 shadow="md" 
                 withBorder 
-                pb={42}
+                pb={52}
             >
                 
                 <Card.Section>

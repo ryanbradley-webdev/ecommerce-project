@@ -44,6 +44,8 @@ export default function Home() {
                         align='center'
                         slideGap='xl'
                         slideSize='80%'
+                        maw={615}
+                        mx='auto'
                         withIndicators
                         styles={{
                             indicator: {
