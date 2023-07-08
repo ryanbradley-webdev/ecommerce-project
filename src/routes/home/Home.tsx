@@ -6,7 +6,7 @@ import { getProducts } from '../../../lib/getProducts.ts'
 import { loadingProductArr } from "../products/loadingProduct.ts";
 
 export default function Home() {
-    const { data } = useQuery({
+    const { data: products } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
         placeholderData: loadingProductArr.slice(0, 3)
@@ -53,12 +53,14 @@ export default function Home() {
                         }}
                     >
 
-                        {data && data.map(product => (
-                            <NewItem
-                                product={product}
-                                key={product.id}
-                            />
-                        ))}
+                        {products && products.map((product, idx) => {
+                            if (idx < 3) return (
+                                <NewItem
+                                    product={product}
+                                    key={product.id}
+                                />
+                            )
+                        })}
 
                     </Carousel>
 
