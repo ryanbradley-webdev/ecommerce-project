@@ -16,11 +16,11 @@ import { PLACEHOLDER_REVIEWS } from '../../../placeholderData'
 export default function ProductDescription() {
     const { id } = useParams()
 
-    const product = useQuery({
+    const { data: product } = useQuery({
         queryKey: [`product-${id}`],
         queryFn: () => getProductById(id),
         placeholderData: loadingProduct
-    }).data
+    })
 
     const reviewCount = useQuery({
         queryKey: [`review-count-${id}`],
@@ -111,10 +111,10 @@ export default function ProductDescription() {
 
                                 <Rating
                                     fractions={10}
-                                    value={product.rating}
+                                    value={product.rating || 0}
                                 />
 
-                                {product.rating}&nbsp;
+                                &nbsp;{product.rating || 0} stars&nbsp;
 
                                 <Text
                                     weight={300}

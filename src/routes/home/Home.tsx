@@ -41,7 +41,6 @@ export default function Home() {
                     </h4>
 
                     <Carousel
-                        loop
                         align='center'
                         slideGap='xl'
                         slideSize='80%'

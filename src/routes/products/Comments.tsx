@@ -31,7 +31,7 @@ export default function Comments({
 
             </Input.Wrapper>
 
-            {reviews ? (
+            {reviews?.length ? (
                 reviews.map(review => (
                     <Comment
                         key={review.id}
@@ -39,7 +39,9 @@ export default function Comments({
                     />
                 ))
             ) : (
-                <Text>
+                <Text
+                    align="center"
+                >
                     Be the first to review!
                 </Text>
             )}

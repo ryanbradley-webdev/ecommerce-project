@@ -1,4 +1,4 @@
-import { Card, Group, Text } from "@mantine/core";
+import { Card, Group, Rating, Text } from "@mantine/core";
 import CartBtn from "../../../components/CartBtn";
 import { Product } from "../../../types";
 import ProductBtn from "../../../components/ProductBtn";
@@ -88,6 +88,11 @@ export default function ProductCard({
                     </Text>
                 )
             }
+
+            <Rating
+                fractions={10}
+                value={product.rating || 0}
+            />
 
         </Group>
 
