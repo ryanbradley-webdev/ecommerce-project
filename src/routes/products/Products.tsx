@@ -6,15 +6,15 @@ import { getProducts } from "../../../lib/getProducts";
 import { loadingProductArr } from "./loadingProduct";
 
 export default function Products() {
-    const { data } = useQuery({
+    const { data: products } = useQuery({
         queryKey: ['products'],
         queryFn: getProducts,
         placeholderData: loadingProductArr
     })
     
-    const brands = data ? new Set(data.map(item => item.brand)) : []
+    const brands = products ? new Set(products.map(item => item.brand)) : []
 
-    const [filteredProducts, setFilteredProducts] = useState(data)
+    const [filteredProducts, setFilteredProducts] = useState(products)
     const [selectedBrands, setSelectedBrands] = useState<string[]>([])
 
     const brandRef = useRef<HTMLInputElement>(null)
@@ -25,11 +25,11 @@ export default function Products() {
 
     useEffect(() => {
         if (selectedBrands.length === 0) {
-            setFilteredProducts(data)
+            setFilteredProducts(products)
         } else {
-            data && setFilteredProducts(data.filter(item => selectedBrands.includes(item.brand)))
+            products && setFilteredProducts(products.filter(item => selectedBrands.includes(item.brand)))
         }
-    }, [selectedBrands, data])
+    }, [selectedBrands, products])
     
     return (
         <main>
