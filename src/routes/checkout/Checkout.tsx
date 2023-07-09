@@ -5,10 +5,9 @@ import { Accordion, Button, Checkbox, Flex, Input, Select, Text } from "@mantine
 import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
 import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
-import { Link } from "react-router-dom"
 
 export default function Checkout() {
-    const { cartTotal } = useContext(CartContext)
+    const { cart, cartTotal } = useContext(CartContext)
 
     const [customerInfo, dispatch] = useReducer<Reducer<CheckoutData, CheckoutAction>>(reducer, initialCheckoutData)
 
@@ -19,6 +18,28 @@ export default function Checkout() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!shippingValid || !billingValid || !paymentValid) return
+
+        const {
+            shippingAddress,
+            billingAddress,
+            payment
+        } = customerInfo
+
+        const order = {
+            shippingAddress,
+            billingAddress,
+            payment,
+            products: cart.map(item => {
+                return {
+                    productId: item.product.id,
+                    quantity: item.quantity
+                }
+            })
+        }
+
+        console.log(order)
     }
 
     const toggleBillingInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
