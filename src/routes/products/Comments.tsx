@@ -1,24 +1,55 @@
-import { Button, Container, Input, Rating, Stack, Text } from "@mantine/core";
+import { Button, Container, Input, Loader, Rating, Stack, Text, Textarea } from "@mantine/core";
 import styles from './products.module.css'
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getReviewsById } from "../../../lib/getReviewsbyId";
-import { Review } from "../../../types";
-import { useState } from "react";
+import { addReview } from "../../../lib/addReview";
+import { Review, ReviewSubmission } from "../../../types";
+import { useRef, useState } from "react";
 
 export default function Comments({
     id
 }: {
     id: string
 }) {
+    const [userName, setUserName] = useState('')
+    const [userReview, setUserReview] = useState('')
     const [userRating, setUserRating] = useState(0)
+
+    const formRef = useRef<HTMLFormElement>(null)
+
+    const queryClient = useQueryClient()
 
     const { data: reviews } = useQuery({
         queryKey: [`reviews-${id}`],
         queryFn: () => getReviewsById(id)
     })
 
+    const mutation = useMutation({
+        mutationKey: [`add-review-${id}`],
+        mutationFn: (newReview: ReviewSubmission) => {
+            return addReview(newReview)
+        },
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: [`reviews-${id}`] })
+    })
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!userReview || !userRating || !userName) return
+
+        const newReview: ReviewSubmission = {
+            productId: id,
+            review: userReview,
+            rating: userRating,
+            name: userName
+        }
+
+        mutation.mutateAsync(newReview)
+            .then(() => {
+                setUserName('')
+                setUserReview('')
+                setUserRating(0)
+            })
     }
 
     return (
@@ -32,19 +63,34 @@ export default function Comments({
             <form
                 action=""
                 onSubmit={handleSubmit}
+                ref={formRef}
             >
             
                 <Input.Wrapper
                     px={16}
-                    label='Let others know what you think of these shoes.'
+                    label='Your Name'
                     required
                 >
                 
                     <Input
+                        value={userName}
+                        onChange={e => setUserName(e.target.value)}
+                        placeholder="e.g. John D."
                         required
                     />
 
                 </Input.Wrapper>
+
+                <Textarea
+                    value={userReview}
+                    onChange={e => setUserReview(e.target.value)}
+                    placeholder="Add your review here!"
+                    required
+                    label='Your Review'
+                    px={16}
+                    autosize
+                    minRows={5}
+                ></Textarea>
 
                 <Input.Wrapper
                     w='fit-content'
@@ -71,8 +117,9 @@ export default function Comments({
                     w='calc(100% - 32px)'
                     mx={16}
                     mt={12}
+                    type="submit"
                 >
-                    Add Review
+                    {mutation.isLoading ? <Loader variant="dots" color="white" /> : 'Add Review'}
                 </Button>
 
             </form>
@@ -126,7 +173,7 @@ function Comment({
                 italic
                 c={"gray"}
             >
-                {review.date}
+                {new Date(review.created_at).toLocaleDateString()}
             </Text>
 
             <Text>

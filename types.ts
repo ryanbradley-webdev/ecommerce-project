@@ -8,13 +8,16 @@ export type Product = {
     id: string
 }
 
-export type Review = {
-    id: string,
+export type ReviewSubmission = {
     productId: string,
-    date: string,
     name: string,
     review: string,
     rating: number
+}
+
+export type Review = ReviewSubmission & {
+    id: string,
+    created_at: string
 }
 
 export type CartItem = {
