@@ -1,10 +1,11 @@
 import { CartContext } from "../../../contexts/CartContext"
 import { Reducer, useContext, useEffect, useReducer, useState } from 'react'
 import CartPreview from "./CartPreview"
-import { Accordion, Button, Checkbox, Flex, Input, Select, Text } from "@mantine/core"
+import { Accordion, Button, Checkbox, Flex, Input, Loader, Select, Text } from "@mantine/core"
 import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
 import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
+import CartCard from "../cart/CartCard"
 
 export default function Checkout() {
     const { cart, cartTotal } = useContext(CartContext)
@@ -16,10 +17,15 @@ export default function Checkout() {
     const [billingValid, setBillingValid] = useState(false)
     const [paymentValid, setPaymentValid] = useState(false)
 
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isError, setIsError] = useState(false)
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
         if (!shippingValid || !billingValid || !paymentValid) return
+
+        setIsSubmitting(true)
 
         const {
             shippingAddress,
@@ -39,7 +45,15 @@ export default function Checkout() {
             })
         }
 
-        console.log(order)
+        try {
+            //save order to db
+            console.log(order)
+
+        } catch (e) {
+            setIsError(true)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const toggleBillingInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +62,26 @@ export default function Checkout() {
         } else {
             dispatch({ type: 'resetBilling' })
         }
+    }
+
+    const btnMsg = () => {
+        if (isSubmitting) {
+            return <Loader variant="dots" />
+        }
+
+        if (isError) {
+            return (
+                <Text
+                    style={{
+                        color: 'var(--color-red)'
+                    }}
+                >
+                    Something went wrong
+                </Text>
+            )
+        }
+
+        return 'Submit'
     }
 
     useEffect(() => {
@@ -510,6 +544,14 @@ export default function Checkout() {
 
                         <Accordion.Panel>
 
+                            {cart.map(item => (
+                                <CartCard
+                                    key={item.product.id}
+                                    { ...item }
+                                />
+                            )) // TODO make or modify card for submission
+                            }
+
                             <Flex
                                 mb={24}
                                 justify='space-between'
@@ -551,9 +593,9 @@ export default function Checkout() {
                                 <Button
                                     type="submit"
                                     w={200}
-                                    disabled={!shippingValid || !billingValid || !paymentValid}
+                                    disabled={!shippingValid || !billingValid || !paymentValid || isSubmitting}
                                 >
-                                    Submit
+                                    {btnMsg()}
                                 </Button>
 
                             </Flex>
