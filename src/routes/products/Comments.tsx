@@ -1,4 +1,4 @@
-import { Button, Container, Input, Loader, Rating, Stack, Text, Textarea } from "@mantine/core";
+import { Button, Container, Input, Loader, Rating, Stack, Text, Textarea, Title } from "@mantine/core";
 import styles from './products.module.css'
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getReviewsById } from "../../../lib/getReviewsbyId";
@@ -52,6 +52,18 @@ export default function Comments({
             })
     }
 
+    const btnMsg = () => {
+        if (mutation.isLoading) {
+            return <Loader variant="dots" color="white" />
+        }
+
+        if (mutation.isError) {
+            return 'Something went wrong'
+        }
+
+        return 'Add Review'
+    }
+
     return (
         <Stack
             className={styles.comments}
@@ -64,7 +76,18 @@ export default function Comments({
                 action=""
                 onSubmit={handleSubmit}
                 ref={formRef}
+                style={{
+                    marginTop: '48px'
+                }}
             >
+
+                <Title
+                    size={20}
+                    align="center"
+                    mb={16}
+                >
+                    Share your thoughts!
+                </Title>
             
                 <Input.Wrapper
                     px={16}
@@ -119,7 +142,7 @@ export default function Comments({
                     mt={12}
                     type="submit"
                 >
-                    {mutation.isLoading ? <Loader variant="dots" color="white" /> : 'Add Review'}
+                    {btnMsg()}
                 </Button>
 
             </form>
