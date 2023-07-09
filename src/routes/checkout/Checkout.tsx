@@ -363,15 +363,31 @@ export default function Checkout() {
 
                             </Flex>
 
-                            <Button
-                                w={200}
-                                mx='auto'
+                            <Flex
+                                gap={16}
                                 mt={24}
-                                onClick={() => setFormValue('payment')}
-                                disabled={!shippingValid}
+                                wrap='wrap'
+                                align='center'
+                                justify='center'
                             >
-                                Next
-                            </Button>
+
+                                <Button
+                                    w={200}
+                                    onClick={() => setFormValue('shipping')}
+                                    variant="outline"
+                                >
+                                    Back
+                                </Button>
+
+                                <Button
+                                    w={200}
+                                    onClick={() => setFormValue('payment')}
+                                    disabled={!billingValid}
+                                >
+                                    Next
+                                </Button>
+
+                            </Flex>
 
                         </Accordion.Panel>
 
@@ -435,15 +451,31 @@ export default function Checkout() {
 
                             </Flex>
 
-                            <Button
-                                w={200}
-                                mx='auto'
+                            <Flex
+                                gap={16}
                                 mt={24}
-                                onClick={() => setFormValue('confirm')}
-                                disabled={!shippingValid}
+                                wrap='wrap'
+                                align='center'
+                                justify='center'
                             >
-                                Next
-                            </Button>
+
+                                <Button
+                                    w={200}
+                                    onClick={() => setFormValue('billing')}
+                                    variant="outline"
+                                >
+                                    Back
+                                </Button>
+
+                                <Button
+                                    w={200}
+                                    onClick={() => setFormValue('confirm')}
+                                    disabled={!paymentValid}
+                                >
+                                    Next
+                                </Button>
+
+                            </Flex>
 
                         </Accordion.Panel>
 
@@ -480,31 +512,24 @@ export default function Checkout() {
                             </Flex>
 
                             <Flex
-                                justify='center'
-                                gap={24}
+                                gap={16}
+                                mt={24}
                                 wrap='wrap'
+                                align='center'
+                                justify='center'
                             >
 
-                                <Link
-                                    to='/cart'
-                                    style={{
-                                        width: '100%',
-                                        maxWidth: '250px'
-                                    }}
+                                <Button
+                                    w={200}
+                                    onClick={() => setFormValue('payment')}
+                                    variant="outline"
                                 >
-                                    <Button
-                                        variant="outline"
-                                        color="gray"
-                                        fullWidth
-                                    >
-                                        Cancel
-                                    </Button>
-                                </Link>
+                                    Back
+                                </Button>
 
                                 <Button
                                     type="submit"
-                                    fullWidth
-                                    maw={250}
+                                    w={200}
                                     disabled={!shippingValid || !billingValid || !paymentValid}
                                 >
                                     Submit
