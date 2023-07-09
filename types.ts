@@ -42,3 +42,35 @@ export type CartData = {
     increaseQuantity: (id: string) => void
     decreaseQuantity: (id: string) => void
 }
+
+export type CheckoutData = {
+    shippingAddress: {
+        firstName: string,
+        lastName: string,
+        addressLineOne: string,
+        addressLineTwo: string,
+        addressLineThree: string,
+        city: string,
+        state: string,
+        zip: number | null
+    },
+    billingAddress: {
+        firstName: string,
+        lastName: string,
+        addressLineOne: string,
+        addressLineTwo: string,
+        addressLineThree: string,
+        city: string,
+        state: string,
+        zip: number | null
+    },
+    payment: {
+        cardNumber: number | null,
+        expiration: string,
+        cvv: number | null
+    }
+}
+
+export type CheckoutAction =
+    | { type: 'shipping/changeZip' | 'billing/changeZip' | 'changeCardNumber' | 'changeCvv', payload: number | null }
+    | { type: string, payload: string }
