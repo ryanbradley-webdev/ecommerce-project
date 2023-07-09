@@ -14,7 +14,13 @@ export default function CartPreview() {
 
             <Popover.Target>
 
-                <Button>
+                <Button
+                    variant='outline'
+                    mx='auto'
+                    display='block'
+                    w='100%'
+                    maw={600}
+                >
 
                     <IconChevronDown
                         width={20}
@@ -26,7 +32,12 @@ export default function CartPreview() {
 
             </Popover.Target>
 
-            <Popover.Dropdown>
+            <Popover.Dropdown
+                px={48}
+                style={{
+                    boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.247)'
+                }}
+            >
 
                 {cart.length > 0 ? (
                     cart.map(item => (
@@ -54,7 +65,7 @@ function PreviewItem({
     return (
         <Flex
             gap={16}
-            my={12}
+            my={24}
         >
 
             <img 

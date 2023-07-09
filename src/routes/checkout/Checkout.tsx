@@ -1,13 +1,13 @@
 import { CartContext } from "../../../contexts/CartContext"
 import { Reducer, useContext, useReducer } from 'react'
 import CartPreview from "./CartPreview"
-import { Accordion, Button, Checkbox, Flex, Input, Select } from "@mantine/core"
+import { Accordion, Button, Checkbox, Flex, Input, Select, Text } from "@mantine/core"
 import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
 import { CheckoutAction, CheckoutData } from "../../../types"
 
 export default function Checkout() {
-    const { cart } = useContext(CartContext)
+    const { cartTotal } = useContext(CartContext)
 
     const [customerInfo, dispatch] = useReducer<Reducer<CheckoutData, CheckoutAction>>(reducer, initialCheckoutData)
 
@@ -30,7 +30,16 @@ export default function Checkout() {
 
             <form action="" onSubmit={handleSubmit}>
 
-                <Accordion>
+                <Accordion
+                    maw={600}
+                    mx='auto'
+                    styles={{
+                        content: {
+                            display: 'grid',
+                            rowGap: '16px'
+                        }
+                    }}
+                >
 
                     <Accordion.Item value="shipping">
                         
@@ -40,11 +49,16 @@ export default function Checkout() {
 
                         <Accordion.Panel>
 
-                            <Flex>
+                            <Flex
+                                gap={24}
+                            >
 
                                 <Input.Wrapper
                                     label='First Name'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -57,6 +71,9 @@ export default function Checkout() {
                                 <Input.Wrapper
                                     label='Last Name'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -104,11 +121,17 @@ export default function Checkout() {
                             
                             </Input.Wrapper>
 
-                            <Flex>
+                            <Flex
+                                gap={16}
+                                wrap='wrap'
+                            >
 
                                 <Input.Wrapper
                                     label='City'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -123,12 +146,16 @@ export default function Checkout() {
                                     value={customerInfo.shippingAddress.state}
                                     onChange={e => dispatch({ type: 'shipping/changeState', payload: e || '' })}
                                     label='State'
+                                    w={70}
                                     required
                                 />
 
                                 <Input.Wrapper
                                     label='ZIP'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -158,11 +185,16 @@ export default function Checkout() {
                                 onChange={toggleBillingInfo}
                             />
 
-                            <Flex>
+                            <Flex
+                                gap={16}
+                            >
 
                                 <Input.Wrapper
                                     label='First Name'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -175,6 +207,9 @@ export default function Checkout() {
                                 <Input.Wrapper
                                     label='Last Name'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -222,11 +257,17 @@ export default function Checkout() {
                             
                             </Input.Wrapper>
 
-                            <Flex>
+                            <Flex
+                                gap={16}
+                                wrap='wrap'
+                            >
 
                                 <Input.Wrapper
                                     label='City'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -241,12 +282,16 @@ export default function Checkout() {
                                     value={customerInfo.billingAddress.state}
                                     onChange={e => dispatch({ type: 'billing/changeState', payload: e || '' })}
                                     label='State'
+                                    w={70}
                                     required
                                 />
 
                                 <Input.Wrapper
                                     label='ZIP'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
@@ -284,16 +329,22 @@ export default function Checkout() {
                             
                             </Input.Wrapper>
 
-                            <Flex>
+                            <Flex
+                                gap={16}
+                            >
                                 
                                 <Input.Wrapper
                                     label='Expiration'
                                     required
+                                    style={{
+                                        flexGrow: '1'
+                                    }}
                                 >
                                 
                                     <Input
                                         value={customerInfo.payment.expiration}
                                         onChange={e => dispatch({ type: 'changeExpiration', payload: e.target.value })}
+                                        placeholder="MM/YY"
                                     />
                                 
                                 </Input.Wrapper>
@@ -301,12 +352,14 @@ export default function Checkout() {
                                 <Input.Wrapper
                                     label='CVV'
                                     required
+                                    w={100}
                                 >
                                 
                                     <Input
                                         type="number"
                                         value={customerInfo.payment.cvv || ''}
                                         onChange={e => dispatch({ type: 'changeCvv', payload: e.target.value || null })}
+                                        placeholder="e.g. 123"
                                     />
                                 
                                 </Input.Wrapper>
@@ -326,6 +379,28 @@ export default function Checkout() {
                         <Accordion.Panel>
 
                             <Flex
+                                mb={24}
+                                justify='space-between'
+                                px={16}
+                            >
+
+                                <Text
+                                    weight={500}
+                                    size={20}
+                                >
+                                    Grand Total:
+                                </Text>
+
+                                <Text
+                                    weight={500}
+                                    size={20}
+                                >
+                                    ${cartTotal}
+                                </Text>
+
+                            </Flex>
+
+                            <Flex
                                 justify='center'
                                 gap={24}
                             >
@@ -333,14 +408,14 @@ export default function Checkout() {
                                 <Button
                                     variant="outline"
                                     color="gray"
-                                    w={200}
+                                    fullWidth
                                 >
                                     Cancel
                                 </Button>
 
                                 <Button
-                                    w={200}
                                     type="submit"
+                                    fullWidth
                                 >
                                     Submit
                                 </Button>
