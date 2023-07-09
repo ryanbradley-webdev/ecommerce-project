@@ -7,9 +7,11 @@ import { Review, ReviewSubmission } from "../../../types";
 import { useRef, useState } from "react";
 
 export default function Comments({
-    id
+    id,
+    updateRating
 }: {
-    id: string
+    id: string,
+    updateRating: (rating: number | null | undefined) => void
 }) {
     const [userName, setUserName] = useState('')
     const [userReview, setUserReview] = useState('')
@@ -27,9 +29,12 @@ export default function Comments({
     const mutation = useMutation({
         mutationKey: [`add-review-${id}`],
         mutationFn: (newReview: ReviewSubmission) => {
-            return addReview(newReview)
+            return addReview(newReview, reviews?.length)
         },
-        onSuccess: () => queryClient.invalidateQueries({ queryKey: [`reviews-${id}`] })
+        onSuccess: (data) => {
+            if (typeof data === 'number') updateRating(data)
+            queryClient.invalidateQueries({ queryKey: [`reviews-${id}`] })
+        }
     })
 
     const handleSubmit = (e: React.FormEvent) => {

@@ -11,13 +11,22 @@ import ImgSkeleton from '../../../components/skeletons/ImgSkeleton'
 import TitleSkeleton from '../../../components/skeletons/TitleSkeleton'
 import SubtitleSkeleton from '../../../components/skeletons/SubtitleSkeleton'
 import TextSkeleton from '../../../components/skeletons/TextSkeleton'
+import { useState } from 'react'
 
 export default function ProductDescription() {
     const { id } = useParams()
 
+    const [productRating, setProductRating] = useState('0.0')
+
     const { data: product } = useQuery({
         queryKey: [`product-${id}`],
-        queryFn: () => getProductById(id),
+        queryFn: async () => {
+            const product = await getProductById(id)
+
+            updateRating(product?.rating)
+
+            return product
+        },
         placeholderData: loadingProduct
     })
 
@@ -25,6 +34,16 @@ export default function ProductDescription() {
         queryKey: [`review-count-${id}`],
         queryFn: () => getReviewCountById(id)
     })
+
+    const updateRating = (rating: number | null | undefined) => {
+        if (!rating) return
+
+        if (rating % 1 === 0) {
+            return setProductRating(rating.toString() + '.0')
+        }
+
+        setProductRating(rating.toString().slice(0, 3))
+    }
 
     return (
         <main>
@@ -110,11 +129,11 @@ export default function ProductDescription() {
 
                                 <Rating
                                     fractions={10}
-                                    value={product.rating || 0}
+                                    value={Number(productRating)}
                                     readOnly
                                 />
 
-                                &nbsp;{product.rating || 0} stars&nbsp;
+                                &nbsp;{productRating} stars&nbsp;
 
                                 <Text
                                     weight={300}
@@ -144,6 +163,7 @@ export default function ProductDescription() {
 
                         <Comments
                             id={product.id}
+                            updateRating={updateRating}
                         />
 
                     </div>
