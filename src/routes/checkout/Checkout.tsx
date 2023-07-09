@@ -1,15 +1,21 @@
 import { CartContext } from "../../../contexts/CartContext"
-import { Reducer, useContext, useReducer } from 'react'
+import { Reducer, useContext, useEffect, useReducer, useState } from 'react'
 import CartPreview from "./CartPreview"
 import { Accordion, Button, Checkbox, Flex, Input, Select, Text } from "@mantine/core"
 import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
-import { CheckoutAction, CheckoutData } from "../../../types"
+import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
+import { Link } from "react-router-dom"
 
 export default function Checkout() {
     const { cartTotal } = useContext(CartContext)
 
     const [customerInfo, dispatch] = useReducer<Reducer<CheckoutData, CheckoutAction>>(reducer, initialCheckoutData)
+
+    const [formValue, setFormValue] = useState('shipping')
+    const [shippingValid, setShippingValid] = useState(false)
+    const [billingValid, setBillingValid] = useState(false)
+    const [paymentValid, setPaymentValid] = useState(false)
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -23,12 +29,47 @@ export default function Checkout() {
         }
     }
 
+    useEffect(() => {
+        const {
+            shippingAddress,
+            billingAddress,
+            payment
+        } = customerInfo
+
+        const validateValues = (section: Address | Payment) => {
+            let isValid = true
+
+            for (const [key, value] of Object.entries(section)) {
+                if (key !== 'addressLineTwo' && key !== 'addressLineThree' && !value) {
+                    isValid = false
+                }
+            }
+
+            return isValid
+        }
+
+        formValue === 'shipping' && setShippingValid(validateValues(shippingAddress))
+        formValue === 'billing' && setBillingValid(validateValues(billingAddress))
+        formValue === 'payment' && setPaymentValid(validateValues(payment))
+        
+    }, [customerInfo, formValue])
+
     return (
-        <main>
+        <main
+            style={{
+                paddingInline: '16px'
+            }}
+        >
             
             <CartPreview />
 
-            <form action="" onSubmit={handleSubmit}>
+            <form 
+                action="" 
+                onSubmit={handleSubmit}
+                style={{
+                    marginBlock: '48px',
+                }}
+            >
 
                 <Accordion
                     maw={600}
@@ -36,9 +77,17 @@ export default function Checkout() {
                     styles={{
                         content: {
                             display: 'grid',
-                            rowGap: '16px'
+                            rowGap: '16px',
+                        },
+                        item: {
+                            borderLeft: '1px solid #dee2e6',
+                            borderRight: '1px solid #dee2e6',
                         }
                     }}
+                    style={{
+                        borderTop: '1px solid #dee2e6'
+                    }}
+                    value={formValue}
                 >
 
                     <Accordion.Item value="shipping">
@@ -167,6 +216,16 @@ export default function Checkout() {
                                 </Input.Wrapper>
 
                             </Flex>
+
+                            <Button
+                                w={200}
+                                mx='auto'
+                                mt={24}
+                                onClick={() => setFormValue('billing')}
+                                disabled={!shippingValid}
+                            >
+                                Next
+                            </Button>
 
                         </Accordion.Panel>
 
@@ -304,6 +363,16 @@ export default function Checkout() {
 
                             </Flex>
 
+                            <Button
+                                w={200}
+                                mx='auto'
+                                mt={24}
+                                onClick={() => setFormValue('payment')}
+                                disabled={!shippingValid}
+                            >
+                                Next
+                            </Button>
+
                         </Accordion.Panel>
 
                     </Accordion.Item>
@@ -366,6 +435,16 @@ export default function Checkout() {
 
                             </Flex>
 
+                            <Button
+                                w={200}
+                                mx='auto'
+                                mt={24}
+                                onClick={() => setFormValue('confirm')}
+                                disabled={!shippingValid}
+                            >
+                                Next
+                            </Button>
+
                         </Accordion.Panel>
 
                     </Accordion.Item>
@@ -403,19 +482,30 @@ export default function Checkout() {
                             <Flex
                                 justify='center'
                                 gap={24}
+                                wrap='wrap'
                             >
 
-                                <Button
-                                    variant="outline"
-                                    color="gray"
-                                    fullWidth
+                                <Link
+                                    to='/cart'
+                                    style={{
+                                        width: '100%',
+                                        maxWidth: '250px'
+                                    }}
                                 >
-                                    Cancel
-                                </Button>
+                                    <Button
+                                        variant="outline"
+                                        color="gray"
+                                        fullWidth
+                                    >
+                                        Cancel
+                                    </Button>
+                                </Link>
 
                                 <Button
                                     type="submit"
                                     fullWidth
+                                    maw={250}
+                                    disabled={!shippingValid || !billingValid || !paymentValid}
                                 >
                                     Submit
                                 </Button>

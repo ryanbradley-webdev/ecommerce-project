@@ -43,7 +43,7 @@ export type CartData = {
     decreaseQuantity: (id: string) => void
 }
 
-type Address = {
+export type Address = {
     firstName: string,
     lastName: string,
     addressLineOne: string,
@@ -54,14 +54,16 @@ type Address = {
     zip: string | number | null
 }
 
+export type Payment = {
+    cardNumber: string | number | null,
+    expiration: string,
+    cvv: string | number | null
+}
+
 export type CheckoutData = {
     shippingAddress: Address,
     billingAddress: Address,
-    payment: {
-        cardNumber: string | number | null,
-        expiration: string,
-        cvv: string | number | null
-    }
+    payment: Payment
 }
 
 export type CheckoutAction =
