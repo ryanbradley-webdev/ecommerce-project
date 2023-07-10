@@ -43,6 +43,13 @@ export type CartData = {
     decreaseQuantity: (id: string) => void
 }
 
+export type Order = {
+    shipping_address: string,
+    billing_address: string,
+    products: { productId: string, quantity: number }[],
+    total: string
+}
+
 export type Address = {
     firstName: string,
     lastName: string,

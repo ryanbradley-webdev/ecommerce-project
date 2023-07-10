@@ -1,4 +1,5 @@
 import { supabase } from '../supabase/supabaseInit'
+import { dataIsOrder } from '../util/typeCheck'
 
 export const getOrderById = async (id: string | null) => {
     if (!id) return
@@ -6,9 +7,13 @@ export const getOrderById = async (id: string | null) => {
     try {
         const { data } = await supabase.from('orders').select('*').filter('id', 'eq', id)
 
-        if (!data) return null
+        if (!data || data.length === 0) return null
 
-        return data[0]
+        const order = data[0]
+
+        return dataIsOrder(order) ?
+            order :
+            null
     } catch (e) {
         return null
     }

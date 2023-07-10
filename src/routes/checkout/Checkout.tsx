@@ -5,7 +5,7 @@ import { Accordion, Button, Checkbox, Flex, Input, Loader, Select, Text } from "
 import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
 import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
-import CartCard from "../cart/CartCard"
+import ProductConfirmationCard from "../../../components/ProductConfirmationCard"
 import { addAddress } from '../../../lib/addAddress'
 import { addOrder } from '../../../lib/addOrder'
 import { useNavigate } from "react-router-dom"
@@ -584,7 +584,7 @@ export default function Checkout() {
                         <Accordion.Panel>
 
                             {cart.map(item => (
-                                <CartCard
+                                <ProductConfirmationCard
                                     key={item.product.id}
                                     { ...item }
                                 />
