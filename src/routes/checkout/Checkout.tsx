@@ -8,6 +8,7 @@ import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
 import CartCard from "../cart/CartCard"
 import { addAddress } from '../../../lib/addAddress'
 import { addOrder } from '../../../lib/addOrder'
+import { useNavigate } from "react-router-dom"
 
 export default function Checkout() {
     const { cart, cartTotal } = useContext(CartContext)
@@ -23,6 +24,8 @@ export default function Checkout() {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isError, setIsError] = useState(false)
+
+    const navigate = useNavigate()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -80,6 +83,8 @@ export default function Checkout() {
             if (orderId < 0) {
                 return setIsError(true)
             }
+
+            navigate(`/confirmation?orderId=${orderId}`)
 
         } catch (e) {
             setIsError(true)

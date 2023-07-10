@@ -8,6 +8,7 @@ import Footer from "../components/footer/Footer";
 import './App.css'
 import Cart from "./routes/cart/Cart";
 import Checkout from "./routes/checkout/Checkout";
+import Confirmation from "./routes/confirmation/Confirmation";
 
 export default function App() {
   return (
@@ -37,6 +38,8 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
 
         <Route path="/checkout" element={<Checkout />} />
+
+        <Route path="/confirmation" element={<Confirmation />} />
 
       </Routes>
 
