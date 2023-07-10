@@ -26,7 +26,7 @@ export default function Home() {
                 >
 
                     <h1 style={{ textAlign: 'center' }}>
-                        Wecome to Commerce City
+                        Wecome to The Shoe Zone
                     </h1>
 
                 </MediaQuery>
