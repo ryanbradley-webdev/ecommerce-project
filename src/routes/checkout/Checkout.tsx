@@ -6,6 +6,8 @@ import { initialCheckoutData, reducer } from "./CheckoutReducer"
 import { STATES } from '../../../util/states'
 import { CheckoutAction, CheckoutData, Address, Payment } from "../../../types"
 import CartCard from "../cart/CartCard"
+import { addAddress } from '../../../lib/addAddress'
+import { addOrder } from '../../../lib/addOrder'
 
 export default function Checkout() {
     const { cart, cartTotal } = useContext(CartContext)
@@ -17,10 +19,12 @@ export default function Checkout() {
     const [billingValid, setBillingValid] = useState(false)
     const [paymentValid, setPaymentValid] = useState(false)
 
+    const [sameAddresses, setSameAddresses] = useState(false)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isError, setIsError] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         if (!shippingValid || !billingValid || !paymentValid) return
@@ -33,21 +37,49 @@ export default function Checkout() {
             payment
         } = customerInfo
 
-        const order = {
-            shippingAddress,
-            billingAddress,
-            payment,
-            products: cart.map(item => {
-                return {
+        try {
+            const shippingAddressId = await addAddress({
+                line_one: shippingAddress.addressLineOne,
+                line_two: shippingAddress.addressLineTwo,
+                line_three: shippingAddress.addressLineThree,
+                city: shippingAddress.city,
+                state: shippingAddress.state,
+                zip: shippingAddress.zip
+            })
+
+            if (shippingAddressId < 0) {
+                return setIsError(true)
+            }
+
+            const billingAddressId = sameAddresses ?
+                shippingAddressId : await addAddress({
+                    line_one: billingAddress.addressLineOne,
+                    line_two: billingAddress.addressLineTwo,
+                    line_three: billingAddress.addressLineThree,
+                    city: billingAddress.city,
+                    state: billingAddress.state,
+                    zip: billingAddress.zip
+                })
+
+            if (billingAddressId < 0) {
+                return setIsError(true)
+            }
+
+            const order = {
+                shipping_address: shippingAddressId,
+                billing_address: billingAddressId,
+                products: cart.map(item => ({
                     productId: item.product.id,
                     quantity: item.quantity
-                }
-            })
-        }
+                })),
+                total: cartTotal
+            }
 
-        try {
-            //save order to db
-            console.log(order)
+            const orderId = await addOrder(order)
+
+            if (orderId < 0) {
+                return setIsError(true)
+            }
 
         } catch (e) {
             setIsError(true)
@@ -62,6 +94,8 @@ export default function Checkout() {
         } else {
             dispatch({ type: 'resetBilling' })
         }
+
+        setSameAddresses(e.target.checked)
     }
 
     const btnMsg = () => {
@@ -265,7 +299,7 @@ export default function Checkout() {
                                     <Input
                                         type="number"
                                         value={customerInfo.shippingAddress.zip || ''}
-                                        onChange={e => dispatch({ type: 'shipping/changeZip', payload: e.target.value })}
+                                        onChange={e => dispatch({ type: 'shipping/changeZip', payload: e.target.value.toString() })}
                                     />
                                 
                                 </Input.Wrapper>
@@ -411,7 +445,7 @@ export default function Checkout() {
                                     <Input
                                         type="number"
                                         value={customerInfo.billingAddress.zip || ''}
-                                        onChange={e => dispatch({ type: 'billing/changeZip', payload: e.target.value })}
+                                        onChange={e => dispatch({ type: 'billing/changeZip', payload: e.target.value.toString() })}
                                     />
                                 
                                 </Input.Wrapper>
@@ -464,7 +498,7 @@ export default function Checkout() {
                                 <Input 
                                     type="number"
                                     value={customerInfo.payment.cardNumber || ''}
-                                    onChange={e => dispatch({ type: 'changeCardNumber', payload: e.target.value || null })}
+                                    onChange={e => dispatch({ type: 'changeCardNumber', payload: e.target.value.toString() })}
                                 />
                             
                             </Input.Wrapper>
@@ -498,7 +532,7 @@ export default function Checkout() {
                                     <Input
                                         type="number"
                                         value={customerInfo.payment.cvv || ''}
-                                        onChange={e => dispatch({ type: 'changeCvv', payload: e.target.value || null })}
+                                        onChange={e => dispatch({ type: 'changeCvv', payload: e.target.value.toString() })}
                                         placeholder="e.g. 123"
                                     />
                                 

@@ -51,13 +51,13 @@ export type Address = {
     addressLineThree: string,
     city: string,
     state: string,
-    zip: string | number | null
+    zip: string
 }
 
 export type Payment = {
-    cardNumber: string | number | null,
+    cardNumber: string,
     expiration: string,
-    cvv: string | number | null
+    cvv: string
 }
 
 export type CheckoutData = {
@@ -69,5 +69,5 @@ export type CheckoutData = {
 export type CheckoutAction =
     | { type: 'resetBilling' }
     | { type: 'copyShipping', payload: Address }
-    | { type: 'shipping/changeZip' | 'billing/changeZip' | 'changeCardNumber' | 'changeCvv', payload: string | number | null }
+    | { type: 'shipping/changeZip' | 'billing/changeZip' | 'changeCardNumber' | 'changeCvv', payload: string }
     | { type: string, payload: string }
