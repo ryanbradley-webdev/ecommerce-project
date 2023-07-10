@@ -92,6 +92,7 @@ export default function ProductCard({
             <Rating
                 fractions={10}
                 value={product.rating || 0}
+                readOnly
             />
 
         </Group>
