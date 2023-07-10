@@ -36,8 +36,7 @@ export default function Checkout() {
 
         const {
             shippingAddress,
-            billingAddress,
-            payment
+            billingAddress
         } = customerInfo
 
         try {

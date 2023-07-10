@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Link, useSearchParams } from "react-router-dom"
 import { getOrderById } from '../../../lib/getOrderById'
-import { Button, Group, Stack, Text, Title } from "@mantine/core"
+import { Button, Stack, Text, Title } from "@mantine/core"
 import { getProducts } from "../../../lib/getProducts"
 import { useEffect, useState } from "react"
 import { Product } from "../../../types"

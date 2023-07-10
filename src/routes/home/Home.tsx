@@ -1,9 +1,10 @@
 import { Carousel } from "@mantine/carousel";
-import { Stack, MediaQuery, Text, Grid, Image } from "@mantine/core";
+import { Stack, MediaQuery, Text, Grid, Image, Flex, Button } from "@mantine/core";
 import NewItem from "./NewItem";
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '../../../lib/getProducts.ts'
 import { loadingProductArr } from "../products/loadingProduct.ts";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const { data: products } = useQuery({
@@ -34,7 +35,8 @@ export default function Home() {
 
                     <h4
                         style={{
-                            marginLeft: '11%'
+                            marginLeft: 'max(11%, calc(50% - calc(calc(615px * 0.78) / 2)))',
+                            marginBottom: '12px'
                         }}
                     >
                         Recent Additions
@@ -140,6 +142,30 @@ export default function Home() {
                     </Grid>
 
                 </div>
+
+                <Flex
+                    justify='center'
+                >
+
+                    <Link
+                        to='/products'
+                    >
+                    
+                        <Button
+                            py={12}
+                            px={24}
+                            h='fit-content'
+                        >
+                            <Text
+                                size={20}
+                            >
+                                Explore Our Inventory
+                            </Text>
+                        </Button>
+                    
+                    </Link>
+
+                </Flex>
 
             </Stack>
 
