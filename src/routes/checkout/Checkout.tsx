@@ -11,7 +11,7 @@ import { addOrder } from '../../../lib/addOrder'
 import { useNavigate } from "react-router-dom"
 
 export default function Checkout() {
-    const { cart, cartTotal } = useContext(CartContext)
+    const { cart, cartTotal, emptyCart } = useContext(CartContext)
 
     const [customerInfo, dispatch] = useReducer<Reducer<CheckoutData, CheckoutAction>>(reducer, initialCheckoutData)
 
@@ -84,6 +84,8 @@ export default function Checkout() {
             }
 
             navigate(`/confirmation?orderId=${orderId}`)
+
+            emptyCart()
 
         } catch (e) {
             setIsError(true)

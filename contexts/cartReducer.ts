@@ -37,6 +37,9 @@ export const reducer = (state: Cart, action: Action): Cart => {
                 return item
             })
 
+        case 'emptyCart':
+            return initialCart
+
         default:
             return state
     }

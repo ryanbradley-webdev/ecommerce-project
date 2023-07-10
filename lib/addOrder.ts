@@ -5,8 +5,6 @@ export const addOrder = async (order: Order) => {
     try {
         const res = await supabase.from('orders').insert(order).select()
 
-        console.log(res)
-
         const { data } = res
 
         if (data) {

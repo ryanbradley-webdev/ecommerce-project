@@ -28,6 +28,7 @@ export type CartItem = {
 export type Cart = CartItem[] | []
 
 export type Action = 
+    | { type: 'emptyCart' }
     | { type: 'addItem', payload: CartItem }
     | { type: 'removeItem', payload: string }
     | { type: 'incrementItem', payload: { id: string, quantity: number | undefined } }
@@ -39,8 +40,9 @@ export type CartData = {
     cartTotal: string,
     addItemToCart: (product: Product, quantity: number) => void,
     removeItemFromCart: (id: string) => void,
-    increaseQuantity: (id: string) => void
-    decreaseQuantity: (id: string) => void
+    increaseQuantity: (id: string) => void,
+    decreaseQuantity: (id: string) => void,
+    emptyCart: () => void
 }
 
 export type Order = {

@@ -50,6 +50,10 @@ export default function CartProvider({ children }: { children: ReactNode | React
         })
     }
 
+    const emptyCart = () => {
+        dispatch({ type: 'emptyCart' })
+    }
+
     const [cartQuantity, cartTotal] = useMemo(() => {
         let count = 0
         let totalDollars = 0
@@ -81,7 +85,8 @@ export default function CartProvider({ children }: { children: ReactNode | React
         addItemToCart,
         removeItemFromCart,
         increaseQuantity,
-        decreaseQuantity
+        decreaseQuantity,
+        emptyCart
     }
 
     return (
