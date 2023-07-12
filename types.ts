@@ -1,3 +1,5 @@
+import { Ref } from "react"
+
 export type Product = {
     name: string,
     brand: string,
@@ -46,8 +48,8 @@ export type CartData = {
 }
 
 export type Order = {
-    shipping_address: string,
-    billing_address: string,
+    shipping_address: number,
+    billing_address: number,
     products: { productId: string, quantity: number }[],
     total: string
 }
@@ -80,3 +82,20 @@ export type CheckoutAction =
     | { type: 'copyShipping', payload: Address }
     | { type: 'shipping/changeZip' | 'billing/changeZip' | 'changeCardNumber' | 'changeCvv', payload: string }
     | { type: string, payload: string }
+
+export type AddressRefs = {
+    firstName: Ref<HTMLInputElement>,
+    lastName: Ref<HTMLInputElement>,
+    addressLineOne: Ref<HTMLInputElement>,
+    addressLineTwo: Ref<HTMLInputElement>,
+    addressLineThree: Ref<HTMLInputElement>,
+    city: Ref<HTMLInputElement>,
+    state: Ref<HTMLInputElement>,
+    zip: Ref<HTMLInputElement>
+}
+
+export type PaymentRefs = {
+    cardNumber: Ref<HTMLInputElement>,
+    expiration: Ref<HTMLInputElement>,
+    cvv: Ref<HTMLInputElement>
+}
