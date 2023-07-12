@@ -15,7 +15,7 @@ export default function Header() {
         <header className={styles.header}>
             
             <span>
-                Commerce City
+                The Shoe Zone
             </span>
 
             <div className={styles.icons} >
