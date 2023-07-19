@@ -1,4 +1,4 @@
-# Frontend Mentor - Invoice app solution
+# The Shoe Zone - An exercise to create a full-stack eCommerce application
 
 This is a fictional eCommerce website entitled "The Shoe Zone" which features several real-world use-cases incorporated into a single full-stack project.
 
