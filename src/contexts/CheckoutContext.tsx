@@ -4,10 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { addAddress } from "../lib/addAddress";
 import { addOrder } from "../lib/addOrder";
 import { validateEntries } from "../lib/validateEntries";
+import { AuthContext } from "./AuthContext";
 
 export const CheckoutContext = createContext({} as CheckoutContext)
 
 export default function CheckoutProvider({ children }: { children: ReactNode }) {
+    const {
+        user,
+        userData
+    } = useContext(AuthContext)
+
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isError, setIsError] = useState(false)
     const [sameAddresses, setSameAddress] = useState(false)
@@ -106,10 +112,9 @@ export default function CheckoutProvider({ children }: { children: ReactNode }) 
                 total: cartTotal
             }
 
-            const orderId = await addOrder(order)
+            const orderId = await addOrder(order, user, userData)
 
             if (orderId < 0) {
-                console.log('order error')
                 return setIsError(true)
             }
 

@@ -62,7 +62,7 @@ type Address = {
 }
 
 type UserData = {
-    userId: string,
+    user_id: string,
     shippingAddress: Address | null,
     billingAddress: Address | null,
     orders: number[]
