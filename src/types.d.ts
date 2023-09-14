@@ -95,3 +95,17 @@ type PaymentRefs = {
     expiration: Ref<HTMLInputElement>,
     cvv: Ref<HTMLInputElement>
 }
+
+type AuthContext = {
+    user: null
+}
+
+type CheckoutContext = {
+    shippingAddressRefs: AddressRefs,
+    billingAddressRefs: AddressRefs,
+    paymentRefs: PaymentRefs,
+    toggleBilling: (isSame: boolean) => void,
+    handleSubmit: (e: React.FormEvent) => void,
+    isSubmitting: boolean,
+    isError: boolean
+}

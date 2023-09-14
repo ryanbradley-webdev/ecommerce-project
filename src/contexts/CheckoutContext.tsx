@@ -140,13 +140,3 @@ export default function CheckoutProvider({ children }: { children: ReactNode }) 
         </CheckoutContext.Provider>
     )
 }
-
-export type CheckoutContext = {
-    shippingAddressRefs: AddressRefs,
-    billingAddressRefs: AddressRefs,
-    paymentRefs: PaymentRefs,
-    toggleBilling: (isSame: boolean) => void,
-    handleSubmit: (e: React.FormEvent) => void,
-    isSubmitting: boolean,
-    isError: boolean
-}

@@ -19,7 +19,3 @@ export default function AuthProvider({
         </AuthContext.Provider>
     )
 }
-
-type AuthContext = {
-    user: null
-}
