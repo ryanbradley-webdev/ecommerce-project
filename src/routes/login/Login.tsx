@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { Text, Stack, Container, Input, Button } from '@mantine/core'
+import { Text, Stack, Container, Input, Button, Flex, Loader } from '@mantine/core'
 import { useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
 import styles from './login.module.css'
@@ -14,6 +14,7 @@ export default function Login() {
 
     const [newAccount, setNewAccount] = useState(false)
     const [errMsg, setErrMsg] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
@@ -36,11 +37,15 @@ export default function Login() {
 
             if (password !== passwordConfirm) return
 
+            setLoading(true)
+
             signup(email, password)
                 .then(res => {
                     if (res.error) {
                         setErrMsg(typeof res.error === 'string' ? res.error : res.error.message)
                     }
+
+                    setLoading(false)
                 })
         } else {
             login(email, password)
@@ -48,6 +53,8 @@ export default function Login() {
                     if (res.error) {
                         setErrMsg(typeof res.error === 'string' ? res.error : res.error.message)
                     }
+
+                    setLoading(false)
                 })
         }
     }
@@ -65,15 +72,19 @@ export default function Login() {
 
             <form
                 onSubmit={handleSubmit}
+                className={styles.form}
             >
 
-                <Stack>
+                <Stack
+                    spacing={30}
+                >
 
                     <Container>
 
                         <Text
                             weight={700}
                             size={20}
+                            align='center'
                         >
                             {newAccount ? 'Enter your information to create an account' : 'Log in to place an order'}
                         </Text>
@@ -126,17 +137,33 @@ export default function Login() {
                         )
                     }
 
-                    {errMsg && <Text>{errMsg}</Text>}
+                    {errMsg && (
+                        <Text
+                            color='var(--color-red)'
+                        >
+                            {errMsg}
+                        </Text>
+                    )}
 
                     <Button
                         type='submit'
+                        disabled={loading}
                     >
 
-                        {newAccount ? 'Create Account' : 'Log In'}
+                        {
+                            loading ? (
+                                <Loader variant='dots' />
+                            ) : (
+                                newAccount ? 'Create Account' : 'Log In'
+                            )
+                        }
 
                     </Button>
 
-                    <Container>
+                    <Flex
+                        justify='center'
+                        align='center'
+                    >
 
                         <Text>
                             {newAccount ? 'Already' : 'Don\'t'} have an account?
@@ -149,7 +176,7 @@ export default function Login() {
                             {newAccount ? 'Log In' : 'Create an account'}
                         </Button>
 
-                    </Container>
+                    </Flex>
 
                 </Stack>
 
