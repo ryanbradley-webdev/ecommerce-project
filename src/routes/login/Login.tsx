@@ -1,13 +1,51 @@
+import { useContext, useEffect, useRef } from 'react'
 import { Text, Stack, Container, Input, Button } from '@mantine/core'
-import styles from './login.module.css'
 import { useState } from 'react'
+import { AuthContext } from '../../contexts/AuthContext'
+import styles from './login.module.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
+    const {
+        user,
+        login,
+        signup
+    } = useContext(AuthContext)
+
     const [newAccount, setNewAccount] = useState(false)
+
+    const emailRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const passwordConfirmRef = useRef<HTMLInputElement>(null)
+
+    const navigate = useNavigate()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
+
+        if (!emailRef.current || !passwordRef.current) return
+
+        const { value: email } = emailRef.current
+        const { value: password } = passwordRef.current
+
+        if (newAccount) {
+            if (!passwordConfirmRef.current) return
+
+            const { value: passwordConfirm } = passwordConfirmRef.current
+
+            if (password !== passwordConfirm) return
+
+            signup(email, password)
+        } else {
+            login(email, password)
+        }
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user, navigate])
 
     return (
         <main
@@ -39,6 +77,7 @@ export default function Login() {
                         <Input
                             type='email'
                             placeholder='e.g. johndoe@email.com'
+                            ref={emailRef}
                             required
                         />
                     
@@ -52,6 +91,7 @@ export default function Login() {
                         <Input
                             type='password'
                             placeholder='Enter your password'
+                            ref={passwordRef}
                             required
                         />
                     
@@ -67,6 +107,7 @@ export default function Login() {
                                 <Input
                                     type='password'
                                     placeholder='Confirm your password'
+                                    ref={passwordConfirmRef}
                                     required
                                 />
                             
@@ -74,7 +115,9 @@ export default function Login() {
                         )
                     }
 
-                    <Button>
+                    <Button
+                        type='submit'
+                    >
 
                         {newAccount ? 'Create Account' : 'Log In'}
 
@@ -87,7 +130,6 @@ export default function Login() {
                         </Text>
 
                         <Button
-                            type='button'
                             onClick={() => setNewAccount(!newAccount)}
                         >
                             {newAccount ? 'Log In' : 'Create an account'}

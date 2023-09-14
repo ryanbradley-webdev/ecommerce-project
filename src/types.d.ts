@@ -97,7 +97,9 @@ type PaymentRefs = {
 }
 
 type AuthContext = {
-    user: null
+    user: User | null
+    login: (email: string, password: string) => void
+    signup: (email: string, password: string) => void
     logout: () => void
 }
 
