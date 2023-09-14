@@ -9,6 +9,8 @@ import Checkout from "./routes/checkout/Checkout";
 import Confirmation from "./routes/confirmation/Confirmation";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
+import Login from "./routes/login/Login";
+import Account from "./routes/account/Account";
 
 export default function App() {
   return (
@@ -41,9 +43,9 @@ export default function App() {
 
         <Route path="/confirmation" element={<Confirmation />} />
 
-        <Route path="/login" element={'Log In'} />
+        <Route path="/login" element={<Login />} />
 
-        <Route path="/account" element={'Account'} />
+        <Route path="/account" element={<Account />} />
 
         <Route path="/*" element={'Not Found'} />
 
