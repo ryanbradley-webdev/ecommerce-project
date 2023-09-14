@@ -100,6 +100,7 @@ export default function Login() {
                             type='email'
                             placeholder='e.g. johndoe@email.com'
                             ref={emailRef}
+                            autoComplete='current-email'
                             required
                         />
                     
@@ -114,6 +115,7 @@ export default function Login() {
                             type='password'
                             placeholder='Enter your password'
                             ref={passwordRef}
+                            autoComplete='new-password'
                             required
                         />
                     
@@ -130,6 +132,7 @@ export default function Login() {
                                     type='password'
                                     placeholder='Confirm your password'
                                     ref={passwordConfirmRef}
+                                    autoComplete='new-password'
                                     required
                                 />
                             
