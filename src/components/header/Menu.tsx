@@ -68,6 +68,7 @@ export default function Menu({
 
             <Link
                 to={user ? '/account' : '/login'}
+                onClick={toggleMenu}
             >
 
                 <IconUserCircle
