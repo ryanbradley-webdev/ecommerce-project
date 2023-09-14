@@ -41,6 +41,8 @@ export default function App() {
 
         <Route path="/confirmation" element={<Confirmation />} />
 
+        <Route path="/login" element={'Log In'} />
+
         <Route path="/account" element={'Account'} />
 
         <Route path="/*" element={'Not Found'} />

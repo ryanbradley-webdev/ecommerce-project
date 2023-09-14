@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from "react"
+import { ReactNode, createContext, useState } from "react"
 
 export const AuthContext = createContext({} as AuthContext)
 
@@ -7,8 +7,15 @@ export default function AuthProvider({
 }: {
     children: ReactNode
 }) {
+    const [user, setUser] = useState(null)
+
+    const logout = () => {
+        setUser(null)
+    }
+
     const value = {
-        user: null
+        user,
+        logout
     }
 
     return (

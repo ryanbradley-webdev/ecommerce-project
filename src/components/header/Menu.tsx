@@ -1,6 +1,8 @@
-import styles from './header.module.css'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { IconHome2, IconShoppingBag, IconShoppingCart, IconUserCircle } from '@tabler/icons-react'
+import { AuthContext } from '../../contexts/AuthContext'
+import styles from './header.module.css'
 
 export default function Menu({
     isVisible,
@@ -9,6 +11,10 @@ export default function Menu({
     isVisible: boolean,
     toggleMenu: () => void
 }) {
+    const {
+        user
+    } = useContext(AuthContext)
+
     return (
         <nav
             className={styles.menu}
@@ -61,7 +67,7 @@ export default function Menu({
             </Link>
 
             <Link
-                to='/account'
+                to={user ? '/account' : '/login'}
             >
 
                 <IconUserCircle
@@ -70,7 +76,7 @@ export default function Menu({
                     color='var(--color-blue-light)'
                 />
 
-                Account
+                {user ? 'Account' : 'Log In'}
 
             </Link>
 

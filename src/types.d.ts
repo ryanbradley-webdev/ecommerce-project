@@ -98,6 +98,7 @@ type PaymentRefs = {
 
 type AuthContext = {
     user: null
+    logout: () => void
 }
 
 type CheckoutContext = {
