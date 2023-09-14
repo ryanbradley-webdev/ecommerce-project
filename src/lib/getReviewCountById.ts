@@ -1,4 +1,4 @@
-import { supabase } from "../supabase/supabaseInit";
+import { supabase } from "../supabase/supabaseInit"
 
 export const getReviewCountById = async (id: string | undefined) => {
     if (!id) return 0

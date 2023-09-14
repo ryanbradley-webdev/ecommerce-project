@@ -2,7 +2,7 @@ import { Accordion, Button, Flex } from "@mantine/core"
 import AddressForm from "./AddressForm"
 import PaymentForm from "./PaymentForm"
 import SubmissionForm from "./SubmissionForm"
-import { CheckoutContext } from "../../../contexts/CheckoutContext"
+import { CheckoutContext } from "../../contexts/CheckoutContext"
 import { useContext, useState } from "react"
 
 export default function CheckoutForm() {

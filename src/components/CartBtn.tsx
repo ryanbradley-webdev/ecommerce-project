@@ -1,7 +1,7 @@
 import { Button } from '@mantine/core'
 import { useContext, useState } from 'react'
 import { CartContext } from '../contexts/CartContext'
-import { Product } from '../types'
+import { Product } from '../src/types'
 
 export default function CartBtn({ product, quantity }: { product: Product, quantity?: number }) {
     const { addItemToCart } = useContext(CartContext)

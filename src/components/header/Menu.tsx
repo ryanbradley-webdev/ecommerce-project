@@ -1,6 +1,6 @@
 import styles from './header.module.css'
 import { Link } from 'react-router-dom'
-import { IconHome2, IconShoppingBag, IconShoppingCart } from '@tabler/icons-react'
+import { IconHome2, IconShoppingBag, IconShoppingCart, IconUserCircle } from '@tabler/icons-react'
 
 export default function Menu({
     isVisible,
@@ -58,6 +58,20 @@ export default function Menu({
                 
                 Cart
                 
+            </Link>
+
+            <Link
+                to='/account'
+            >
+
+                <IconUserCircle
+                    size={36}
+                    strokeWidth={2}
+                    color='var(--color-blue-light)'
+                />
+
+                Account
+
             </Link>
 
         </nav>

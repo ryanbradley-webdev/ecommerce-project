@@ -2,9 +2,9 @@ import { Carousel } from "@mantine/carousel";
 import { Stack, MediaQuery, Text, Grid, Image, Flex, Button } from "@mantine/core";
 import NewItem from "./NewItem";
 import { useQuery } from '@tanstack/react-query'
-import { getProducts } from '../../../lib/getProducts.ts'
 import { loadingProductArr } from "../products/loadingProduct.ts";
 import { Link } from "react-router-dom";
+import { getProducts } from "../../lib/getProducts.ts";
 
 export default function Home() {
     const { data: products } = useQuery({

@@ -1,6 +1,5 @@
-import { dataIsReview } from '../util/typeCheck'
-import { supabase } from "../supabase/supabaseInit";
-import { Review } from '../types';
+import { supabase } from "../supabase/supabaseInit"
+import { dataIsReview } from "../util/typeCheck"
 
 export const getReviewsById = async (id: string | undefined) => {
     if (!id || id === 'loading') return []

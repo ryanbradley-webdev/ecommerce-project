@@ -1,10 +1,9 @@
 import { Button, Container, Input, Loader, Rating, Stack, Text, Textarea, Title } from "@mantine/core";
 import styles from './products.module.css'
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getReviewsById } from "../../../lib/getReviewsbyId";
-import { addReview } from "../../../lib/addReview";
-import { Review, ReviewSubmission } from "../../../types";
 import { useRef, useState } from "react";
+import { addReview } from "../../lib/addReview";
+import { getReviewsById } from "../../lib/getReviewsbyId";
 
 export default function Comments({
     id,

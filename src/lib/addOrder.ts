@@ -1,5 +1,4 @@
-import { supabase } from "../supabase/supabaseInit";
-import { Order } from "../types";
+import { supabase } from "../supabase/supabaseInit"
 
 export const addOrder = async (order: Order) => {
     try {

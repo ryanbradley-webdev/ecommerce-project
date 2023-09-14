@@ -1,6 +1,6 @@
 import { Flex, Input, Select, Checkbox } from '@mantine/core'
-import { STATES } from '../../../util/states'
-import { CheckoutContext } from '../../../contexts/CheckoutContext'
+import { STATES } from '../../util/states'
+import { CheckoutContext } from '../../contexts/CheckoutContext'
 import { useContext } from 'react'
 
 export default function AddressForm({

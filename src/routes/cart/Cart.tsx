@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { CartContext } from "../../../contexts/CartContext"
+import { CartContext } from "../../contexts/CartContext"
 import { Stack, Title, Text, Button } from "@mantine/core"
 import CartCard from "./CartCard"
 import { IconCreditCard } from "@tabler/icons-react"

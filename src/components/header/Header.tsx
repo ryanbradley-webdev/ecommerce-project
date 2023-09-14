@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Burger } from '@mantine/core'
+import { Burger, Text } from '@mantine/core'
 import Menu from './Menu'
 import CartIcon from './CartIcon'
 import styles from './header.module.css'
@@ -14,11 +14,13 @@ export default function Header() {
     return (
         <header className={styles.header}>
             
-            <span>
+            <Text
+                weight={500}
+            >
                 The Shoe Zone
-            </span>
+            </Text>
 
-            <div className={styles.icons} >
+            <div className={styles.icons}>
 
                 <CartIcon />
 

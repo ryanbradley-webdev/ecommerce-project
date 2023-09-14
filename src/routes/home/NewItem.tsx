@@ -1,11 +1,10 @@
 import { Carousel } from "@mantine/carousel";
 import { Card, Group, Text } from "@mantine/core";
-import CartBtn from '../../../components/CartBtn'
-import ProductBtn from '../../../components/ProductBtn'
-import { Product } from "../../../types";
-import ImgSkeleton from "../../../components/skeletons/ImgSkeleton";
-import TitleSkeleton from "../../../components/skeletons/TitleSkeleton";
-import SubtitleSkeleton from "../../../components/skeletons/SubtitleSkeleton";
+import CartBtn from "../../components/CartBtn";
+import ProductBtn from "../../components/ProductBtn";
+import ImgSkeleton from "../../components/skeletons/ImgSkeleton";
+import SubtitleSkeleton from "../../components/skeletons/SubtitleSkeleton";
+import TitleSkeleton from "../../components/skeletons/TitleSkeleton";
 
 export default function NewItem({
     product

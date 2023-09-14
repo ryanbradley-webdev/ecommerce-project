@@ -1,10 +1,9 @@
 import { ReactNode, createContext, useRef, useState, useContext } from "react";
 import { CartContext } from "./CartContext";
 import { useNavigate } from "react-router-dom";
-import { addAddress } from '../lib/addAddress'
-import { addOrder } from '../lib/addOrder'
-import { AddressRefs, PaymentRefs } from "../types";
-import { validateEntries } from '../lib/validateEntries'
+import { addAddress } from "../lib/addAddress";
+import { addOrder } from "../lib/addOrder";
+import { validateEntries } from "../lib/validateEntries";
 
 export const CheckoutContext = createContext({} as CheckoutContext)
 

@@ -1,5 +1,4 @@
-import { supabase } from "../supabase/supabaseInit";
-import { ReviewSubmission } from "../types";
+import { supabase } from "../supabase/supabaseInit"
 
 export const addReview = async (review: ReviewSubmission, reviewCount: number | undefined) => {
     try {

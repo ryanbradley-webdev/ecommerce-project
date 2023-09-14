@@ -1,6 +1,4 @@
-import { Ref } from "react"
-
-export type Product = {
+type Product = {
     name: string,
     brand: string,
     description: string,
@@ -10,34 +8,32 @@ export type Product = {
     id: string
 }
 
-export type ReviewSubmission = {
+type ReviewSubmission = {
     productId: string,
     name: string,
     review: string,
     rating: number
 }
 
-export type Review = ReviewSubmission & {
+type Review = ReviewSubmission & {
     id: string,
     created_at: string
 }
 
-export type CartItem = {
+type CartItem = {
     product: Product,
     quantity: number
 }
 
-export type Cart = CartItem[] | []
-
-export type Action = 
+type Action = 
     | { type: 'emptyCart' }
     | { type: 'addItem', payload: CartItem }
     | { type: 'removeItem', payload: string }
     | { type: 'incrementItem', payload: { id: string, quantity: number | undefined } }
     | { type: 'decrementItem', payload: string }
 
-export type CartData = {
-    cart: Cart,
+type CartData = {
+    cart: CartItem[],
     cartQuantity: number,
     cartTotal: string,
     addItemToCart: (product: Product, quantity: number) => void,
@@ -47,14 +43,14 @@ export type CartData = {
     emptyCart: () => void
 }
 
-export type Order = {
+type Order = {
     shipping_address: number,
     billing_address: number,
     products: { productId: string, quantity: number }[],
     total: string
 }
 
-export type Address = {
+type Address = {
     firstName: string,
     lastName: string,
     addressLineOne: string,
@@ -65,25 +61,25 @@ export type Address = {
     zip: string
 }
 
-export type Payment = {
+type Payment = {
     cardNumber: string,
     expiration: string,
     cvv: string
 }
 
-export type CheckoutData = {
+type CheckoutData = {
     shippingAddress: Address,
     billingAddress: Address,
     payment: Payment
 }
 
-export type CheckoutAction =
+type CheckoutAction =
     | { type: 'resetBilling' }
     | { type: 'copyShipping', payload: Address }
     | { type: 'shipping/changeZip' | 'billing/changeZip' | 'changeCardNumber' | 'changeCvv', payload: string }
     | { type: string, payload: string }
 
-export type AddressRefs = {
+type AddressRefs = {
     firstName: Ref<HTMLInputElement>,
     lastName: Ref<HTMLInputElement>,
     addressLineOne: Ref<HTMLInputElement>,
@@ -94,7 +90,7 @@ export type AddressRefs = {
     zip: Ref<HTMLInputElement>
 }
 
-export type PaymentRefs = {
+type PaymentRefs = {
     cardNumber: Ref<HTMLInputElement>,
     expiration: Ref<HTMLInputElement>,
     cvv: Ref<HTMLInputElement>

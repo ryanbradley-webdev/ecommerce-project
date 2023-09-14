@@ -1,5 +1,5 @@
-import { supabase } from '../supabase/supabaseInit'
-import { dataIsOrder } from '../util/typeCheck'
+import { supabase } from "../supabase/supabaseInit"
+import { dataIsOrder } from "../util/typeCheck"
 
 export const getOrderById = async (id: string | null) => {
     if (!id) return

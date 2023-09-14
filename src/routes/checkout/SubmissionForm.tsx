@@ -1,8 +1,8 @@
 import { useContext } from 'react'
-import { CartContext } from '../../../contexts/CartContext'
-import ProductConfirmationCard from '../../../components/ProductConfirmationCard'
+import { CartContext } from '../../contexts/CartContext'
+import ProductConfirmationCard from '../../components/ProductConfirmationCard'
 import { Button, Flex, Loader, Text } from '@mantine/core'
-import { CheckoutContext } from '../../../contexts/CheckoutContext'
+import { CheckoutContext } from '../../contexts/CheckoutContext'
 
 export default function SubmissionForm({
     onClick

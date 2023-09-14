@@ -1,5 +1,5 @@
-import { dataIsProduct } from '../util/typeCheck'
-import { supabase } from "../supabase/supabaseInit";
+import { supabase } from "../supabase/supabaseInit"
+import { dataIsProduct } from "../util/typeCheck"
 
 export const getProductById = async (id: string | undefined) => {
     if (!id || id === 'loading') return null

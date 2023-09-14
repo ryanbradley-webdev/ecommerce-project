@@ -1,6 +1,6 @@
 import { Flex, Input } from "@mantine/core";
 import { useContext } from 'react'
-import { CheckoutContext } from "../../../contexts/CheckoutContext";
+import { CheckoutContext } from "../../contexts/CheckoutContext";
 
 export default function PaymentForm() {
     const { paymentRefs } = useContext(CheckoutContext)

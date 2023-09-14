@@ -4,14 +4,14 @@ import { Image, Title, Text, MediaQuery, Stack, Grid, Rating } from '@mantine/co
 import AddToCart from './AddToCart'
 import styles from './products.module.css'
 import Comments from './Comments'
-import { getProductById } from '../../../lib/getProductById'
-import { getReviewCountById } from '../../../lib/getReviewCountById'
 import { loadingProduct } from './loadingProduct'
-import ImgSkeleton from '../../../components/skeletons/ImgSkeleton'
-import TitleSkeleton from '../../../components/skeletons/TitleSkeleton'
-import SubtitleSkeleton from '../../../components/skeletons/SubtitleSkeleton'
-import TextSkeleton from '../../../components/skeletons/TextSkeleton'
 import { useState } from 'react'
+import { getProductById } from '../../lib/getProductById'
+import { getReviewCountById } from '../../lib/getReviewCountById'
+import ImgSkeleton from '../../components/skeletons/ImgSkeleton'
+import SubtitleSkeleton from '../../components/skeletons/SubtitleSkeleton'
+import TextSkeleton from '../../components/skeletons/TextSkeleton'
+import TitleSkeleton from '../../components/skeletons/TitleSkeleton'
 
 export default function ProductDescription() {
     const { id } = useParams()

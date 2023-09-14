@@ -1,5 +1,5 @@
 import { Card, Group, Text } from '@mantine/core'
-import { Product } from '../types'
+import { Product } from '../src/types'
 import styles from './styles.module.css'
 
 export default function ProductConfirmationCard({

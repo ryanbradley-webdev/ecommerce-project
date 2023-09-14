@@ -1,11 +1,10 @@
 import { Card, Group, Text } from '@mantine/core'
-import { Product } from '../../../types'
-import Quantity from '../../../components/Quantity'
-import RemoveBtn from '../../../components/RemoveBtn'
-import { calculateCost } from '../../../lib/calculateCost'
+import { calculateCost } from '../../lib/calculateCost'
 import styles from './cart.module.css'
 import { useContext } from 'react'
-import { CartContext } from '../../../contexts/CartContext'
+import { CartContext } from '../../contexts/CartContext'
+import Quantity from '../../components/Quantity'
+import RemoveBtn from '../../components/RemoveBtn'
 
 export default function CartCard({
     product,

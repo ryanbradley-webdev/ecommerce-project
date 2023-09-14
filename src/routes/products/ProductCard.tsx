@@ -1,11 +1,10 @@
 import { Card, Group, Rating, Text } from "@mantine/core";
-import CartBtn from "../../../components/CartBtn";
-import { Product } from "../../../types";
-import ProductBtn from "../../../components/ProductBtn";
-import ImgSkeleton from "../../../components/skeletons/ImgSkeleton";
-import TitleSkeleton from "../../../components/skeletons/TitleSkeleton";
-import SubtitleSkeleton from "../../../components/skeletons/SubtitleSkeleton";
-import TextSkeleton from "../../../components/skeletons/TextSkeleton";
+import CartBtn from "../../components/CartBtn";
+import ProductBtn from "../../components/ProductBtn";
+import ImgSkeleton from "../../components/skeletons/ImgSkeleton";
+import SubtitleSkeleton from "../../components/skeletons/SubtitleSkeleton";
+import TextSkeleton from "../../components/skeletons/TextSkeleton";
+import TitleSkeleton from "../../components/skeletons/TitleSkeleton";
 
 export default function ProductCard({ 
     product

@@ -1,5 +1,3 @@
-import { AddressRefs, PaymentRefs } from '../types'
-
 export const validateEntries = (obj: AddressRefs | PaymentRefs) => {
     let objIsValid = true
 

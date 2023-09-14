@@ -2,8 +2,8 @@ import { Grid, MultiSelect } from "@mantine/core";
 import { useEffect, useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../../../lib/getProducts";
 import { loadingProductArr } from "./loadingProduct";
+import { getProducts } from "../../lib/getProducts";
 
 export default function Products() {
     const { data: products } = useQuery({

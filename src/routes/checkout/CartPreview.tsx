@@ -1,8 +1,7 @@
 import { useContext } from 'react'
-import { CartContext } from '../../../contexts/CartContext'
+import { CartContext } from '../../contexts/CartContext'
 import { Button, Flex, Stack, Popover, Text } from '@mantine/core'
 import { IconChevronDown } from '@tabler/icons-react'
-import { Product } from '../../../types'
 
 export default function CartPreview() {
     const { cart } = useContext(CartContext)

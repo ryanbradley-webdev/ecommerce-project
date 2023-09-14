@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { Link, useSearchParams } from "react-router-dom"
-import { getOrderById } from '../../../lib/getOrderById'
 import { Button, Stack, Text, Title } from "@mantine/core"
-import { getProducts } from "../../../lib/getProducts"
 import { useEffect, useState } from "react"
-import { Product } from "../../../types"
-import ProductConfirmationCard from "../../../components/ProductConfirmationCard"
+import { getProducts } from "../../lib/getProducts"
+import { getOrderById } from "../../lib/getOrderById"
+import ProductConfirmationCard from "../../components/ProductConfirmationCard"
 
 export default function Confirmation() {
     const [ searchParams ] = useSearchParams()

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Quantity from "../../../components/Quantity";
-import { Product } from "../../../types";
-import CartBtn from "../../../components/CartBtn";
+import Quantity from "../../components/Quantity";
+import CartBtn from "../../components/CartBtn";
 
 export default function AddToCart({
     product

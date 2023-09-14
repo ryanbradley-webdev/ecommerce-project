@@ -3,12 +3,12 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./routes/home/Home";
 import Products from "./routes/products/Products";
 import ProductDescription from "./routes/products/ProductDescription";
-import Header from "../components/header/Header";
-import Footer from "../components/footer/Footer";
 import './App.css'
 import Cart from "./routes/cart/Cart";
 import Checkout from "./routes/checkout/Checkout";
 import Confirmation from "./routes/confirmation/Confirmation";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
 
 export default function App() {
   return (
@@ -40,6 +40,10 @@ export default function App() {
         <Route path="/checkout" element={<Checkout />} />
 
         <Route path="/confirmation" element={<Confirmation />} />
+
+        <Route path="/account" element={'Account'} />
+
+        <Route path="/*" element={'Not Found'} />
 
       </Routes>
 

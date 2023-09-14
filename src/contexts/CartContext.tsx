@@ -1,7 +1,6 @@
 import { createContext, ReactNode, useEffect, useMemo, useReducer } from "react"
 import { reducer, initialCart } from "./cartReducer"
-import { Product, CartData } from "../types"
-import { costToString, sumCents, sumDollars } from "../lib/calculateCost"
+import { sumDollars, sumCents, costToString } from "../lib/calculateCost"
 
 export const CartContext = createContext({} as CartData)
 

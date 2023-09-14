@@ -1,5 +1,5 @@
+import CheckoutProvider from "../../contexts/CheckoutContext"
 import CartPreview from "./CartPreview"
-import CheckoutProvider from "../../../contexts/CheckoutContext"
 import CheckoutForm from "./CheckoutForm"
 
 export default function Checkout() {

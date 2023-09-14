@@ -1,8 +1,6 @@
-import { Action, Cart } from '../types'
+export const initialCart: CartItem[] = []
 
-export const initialCart: Cart = []
-
-export const reducer = (state: Cart, action: Action): Cart => {
+export const reducer = (state: CartItem[], action: Action): CartItem[] => {
     switch (action.type) {
         case 'addItem':
             return [

@@ -1,4 +1,4 @@
-import { supabase } from "../supabase/supabaseInit";
+import { supabase } from "../supabase/supabaseInit"
 
 type dbAddress = {
     line_one: string | undefined,
