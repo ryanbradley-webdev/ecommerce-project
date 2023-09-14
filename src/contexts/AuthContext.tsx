@@ -10,6 +10,7 @@ export default function AuthProvider({
     children: ReactNode
 }) {
     const [user, setUser] = useState<User | null>(null)
+    const [userData, setUserData] = useState<UserData | null>(null)
 
     const login = async (email: string, password: string) => {
         return await supabase.auth.signInWithPassword({ email, password })
@@ -29,7 +30,7 @@ export default function AuthProvider({
     }
 
     const signup = async (email: string, password: string): Promise<AuthResponse | {data: null, error: unknown}> => {
-        return await supabase.auth.signUp({ email, password })
+        const newUser = await supabase.auth.signUp({ email, password })
             .then(res => {
                 if (!res.error) {
                     const { user } = res.data
@@ -43,6 +44,24 @@ export default function AuthProvider({
                 data: null,
                 error: e.message
             }))
+
+        if (newUser.data?.user && !newUser.error) {
+            const newUserData = {
+                user_id: newUser.data.user.id,
+                orders: [],
+                shipping_address: null,
+                billing_address: null
+            }
+
+            supabase.from('user-data').insert(newUserData).select().single()
+                .then(res => {
+                    if (!res.error) {
+                        setUserData(res.data)
+                    }
+                })
+        }
+
+        return newUser
     }
 
     const logout = () => {
@@ -52,6 +71,7 @@ export default function AuthProvider({
 
     const value = {
         user,
+        userData,
         login,
         signup,
         logout

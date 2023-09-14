@@ -61,6 +61,13 @@ type Address = {
     zip: string
 }
 
+type UserData = {
+    userId: string,
+    shippingAddress: Address | null,
+    billingAddress: Address | null,
+    orders: number[]
+}
+
 type Payment = {
     cardNumber: string,
     expiration: string,
@@ -98,6 +105,7 @@ type PaymentRefs = {
 
 type AuthContext = {
     user: User | null
+    userData: UserData | null
     login: (email: string, password: string) => Promise<AuthResponse | {data: null, error: unknown}>
     signup: (email: string, password: string) => Promise<AuthResponse | {data: null, error: unknown}>
     logout: () => void
