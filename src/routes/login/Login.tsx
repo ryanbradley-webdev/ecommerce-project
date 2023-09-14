@@ -13,6 +13,7 @@ export default function Login() {
     } = useContext(AuthContext)
 
     const [newAccount, setNewAccount] = useState(false)
+    const [errMsg, setErrMsg] = useState('')
 
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
@@ -20,7 +21,7 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         if (!emailRef.current || !passwordRef.current) return
@@ -36,8 +37,18 @@ export default function Login() {
             if (password !== passwordConfirm) return
 
             signup(email, password)
+                .then(res => {
+                    if (res.error) {
+                        setErrMsg(typeof res.error === 'string' ? res.error : res.error.message)
+                    }
+                })
         } else {
             login(email, password)
+                .then(res => {
+                    if (res.error) {
+                        setErrMsg(typeof res.error === 'string' ? res.error : res.error.message)
+                    }
+                })
         }
     }
 
@@ -115,6 +126,8 @@ export default function Login() {
                         )
                     }
 
+                    {errMsg && <Text>{errMsg}</Text>}
+
                     <Button
                         type='submit'
                     >
@@ -130,6 +143,7 @@ export default function Login() {
                         </Text>
 
                         <Button
+                            variant='subtle'
                             onClick={() => setNewAccount(!newAccount)}
                         >
                             {newAccount ? 'Log In' : 'Create an account'}

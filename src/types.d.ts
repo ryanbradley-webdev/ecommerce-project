@@ -98,8 +98,8 @@ type PaymentRefs = {
 
 type AuthContext = {
     user: User | null
-    login: (email: string, password: string) => void
-    signup: (email: string, password: string) => void
+    login: (email: string, password: string) => Promise<AuthResponse | {data: null, error: unknown}>
+    signup: (email: string, password: string) => Promise<AuthResponse | {data: null, error: unknown}>
     logout: () => void
 }
 
