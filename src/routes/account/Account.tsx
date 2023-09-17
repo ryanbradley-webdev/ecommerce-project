@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styles from './account.module.css'
 import { AuthContext } from '../../contexts/AuthContext'
 import { Container, Flex, Stack, Text } from '@mantine/core'
@@ -11,6 +11,17 @@ export default function Account() {
         user,
         userData
     } = useContext(AuthContext)
+
+    const [shippingAddress, setShippingAddress] = useState(userData?.shippingAddress || null)
+    const [billingAddress, setBillingAddress] = useState(userData?.shippingAddress || null)
+
+    const toggleBilling = (isSame: boolean) => {
+        if (isSame) {
+            setBillingAddress(shippingAddress)
+        } else {
+            setBillingAddress(null)
+        }
+    }
 
     return (
         <main
@@ -36,12 +47,13 @@ export default function Account() {
 
                         <AccountAddress
                             type='shipping'
-                            address={userData.shippingAddress}
+                            address={shippingAddress}
                         />
 
                         <AccountAddress
                             type='billing'
-                            address={userData.shippingAddress}
+                            address={billingAddress}
+                            toggleBilling={toggleBilling}
                         />
 
                         <Stack>

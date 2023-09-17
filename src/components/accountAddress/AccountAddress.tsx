@@ -9,7 +9,7 @@ export default function AccountAddress({
     type,
     address
 }: {
-    toggleBilling?: () => void
+    toggleBilling?: (isSame: boolean) => void
     type: 'shipping' | 'billing'
     address: Address | null
 }) {
@@ -26,12 +26,17 @@ export default function AccountAddress({
 
     const [editing, setEditing] = useState(false)
 
+    const [billingIsSame, setBillingIsSame] = useState(false)
+
     const toggleEditing = () => {
         setEditing(!editing)
     }
 
     const handleToggleBilling = () => {
-        return
+        if (toggleBilling) {
+            toggleBilling(!billingIsSame)
+            setBillingIsSame(!billingIsSame)
+        }
     }
 
     return (
