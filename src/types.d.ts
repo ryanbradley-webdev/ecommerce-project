@@ -1,3 +1,5 @@
+import { User } from "@supabase/supabase-js"
+
 type Product = {
     name: string,
     brand: string,
@@ -44,10 +46,12 @@ type CartData = {
 }
 
 type Order = {
+    id: string
     shipping_address: number,
     billing_address: number,
     products: { productId: string, quantity: number }[],
-    total: string
+    total: string,
+    user_id: string | null
 }
 
 type Address = {

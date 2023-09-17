@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import { IconAlertCircle } from '@tabler/icons-react'
 import AccountAddress from '../../components/accountAddress/AccountAddress'
 import { initialAddress } from '../../util/initialAddress'
+import { useQuery } from '@tanstack/react-query'
+import { getOrdersById } from '../../lib/getOrdersById'
 
 export default function Account() {
     const {
@@ -23,6 +25,11 @@ export default function Account() {
             setBillingAddress(initialAddress)
         }
     }
+
+    const { data: orders } = useQuery({
+        queryKey: [`orders-${user?.id || "none"}`],
+        queryFn: () => getOrdersById(user?.id)
+    })
 
     return (
         <main
@@ -69,10 +76,12 @@ export default function Account() {
                             <Container>
 
                                 {
-                                    userData.orders.length > 0 ? (
-                                        userData.orders.map(order => (
-                                            <Flex>
-                                                {order}
+                                    (orders && orders.length > 0) ? (
+                                        orders.map(order => (
+                                            <Flex
+                                                key={order.id}
+                                            >
+                                                {order.id}
                                             </Flex>
                                         ))
                                     ) : (

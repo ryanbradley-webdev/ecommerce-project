@@ -5,6 +5,7 @@ import { addAddress } from "../lib/addAddress";
 import { addOrder } from "../lib/addOrder";
 import { validateEntries } from "../lib/validateEntries";
 import { AuthContext } from "./AuthContext";
+import { Address } from "../types";
 
 export const CheckoutContext = createContext({} as CheckoutContext)
 
@@ -52,9 +53,11 @@ export default function CheckoutProvider({ children }: { children: ReactNode }) 
 
     const toggleBilling = (isSame: boolean) => {
         for (const [key, value] of Object.entries(billingAddressRefs)) {
+            const field = key as keyof Address
+
             if (value?.current) {
                 value.current.value = 
-                    isSame ? shippingAddressRefs[key as keyof AddressRefs].current?.value || '' :
+                    isSame ? shippingAddressRefs[field].current?.value || '' :
                     ''
             }
         }
@@ -109,7 +112,8 @@ export default function CheckoutProvider({ children }: { children: ReactNode }) 
                     productId: item.product.id,
                     quantity: item.quantity
                 })),
-                total: cartTotal
+                total: cartTotal,
+                user_id: user?.id || null
             }
 
             const orderId = await addOrder(order, user, userData)
