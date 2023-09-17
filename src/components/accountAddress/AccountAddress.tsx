@@ -1,5 +1,5 @@
 import { Stack, Flex, Button, Container, Text } from "@mantine/core";
-import { useRef, useState } from "react";
+import { useRef, useState, Dispatch, SetStateAction } from "react";
 import AddressForm from "../../routes/checkout/AddressForm";
 import { capitalize } from "../../util/capitalize";
 
@@ -7,11 +7,15 @@ import { capitalize } from "../../util/capitalize";
 export default function AccountAddress({
     toggleBilling,
     type,
-    address
+    address,
+    shippingAddress,
+    setAddress
 }: {
     toggleBilling?: (isSame: boolean) => void
     type: 'shipping' | 'billing'
     address: Address | null
+    shippingAddress?: Address
+    setAddress?: Dispatch<SetStateAction<Address>>
 }) {
     const refs = {
         firstName: useRef<HTMLInputElement>(null),
@@ -28,14 +32,40 @@ export default function AccountAddress({
 
     const [billingIsSame, setBillingIsSame] = useState(false)
 
+    const copyAddress = () => {
+        if (address && shippingAddress) {
+            Object.keys(refs).forEach(key => {
+                const field = key as keyof Address
+
+                if (refs[field].current) {
+                    (refs[field].current as HTMLInputElement).value = shippingAddress[field]
+                }
+            })
+        }
+    }
+
     const toggleEditing = () => {
         setEditing(!editing)
     }
 
     const handleToggleBilling = () => {
         if (toggleBilling) {
-            toggleBilling(!billingIsSame)
             setBillingIsSame(!billingIsSame)
+            toggleBilling(!billingIsSame)
+
+            if (!billingIsSame) {
+                copyAddress()
+            }
+        }
+    }
+
+    const handleChange = (value: string, type: keyof Address) => {
+        if (address && setAddress) {
+            const addressCopy = { ...address }
+
+            addressCopy[type] = value
+
+            setAddress(addressCopy)
         }
     }
 
@@ -64,6 +94,7 @@ export default function AccountAddress({
                         type={type}
                         refs={refs}
                         toggleBilling={type === 'billing' ? handleToggleBilling : undefined}
+                        onChange={handleChange}
                     />
                 ) : (
                     <Container>

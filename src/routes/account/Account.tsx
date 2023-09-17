@@ -5,6 +5,7 @@ import { Container, Flex, Stack, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { IconAlertCircle } from '@tabler/icons-react'
 import AccountAddress from '../../components/accountAddress/AccountAddress'
+import { initialAddress } from '../../util/initialAddress'
 
 export default function Account() {
     const {
@@ -12,14 +13,14 @@ export default function Account() {
         userData
     } = useContext(AuthContext)
 
-    const [shippingAddress, setShippingAddress] = useState(userData?.shippingAddress || null)
-    const [billingAddress, setBillingAddress] = useState(userData?.shippingAddress || null)
+    const [shippingAddress, setShippingAddress] = useState(userData?.shippingAddress || initialAddress)
+    const [billingAddress, setBillingAddress] = useState(userData?.shippingAddress || initialAddress)
 
     const toggleBilling = (isSame: boolean) => {
         if (isSame) {
             setBillingAddress(shippingAddress)
         } else {
-            setBillingAddress(null)
+            setBillingAddress(initialAddress)
         }
     }
 
@@ -48,12 +49,15 @@ export default function Account() {
                         <AccountAddress
                             type='shipping'
                             address={shippingAddress}
+                            setAddress={setShippingAddress}
                         />
 
                         <AccountAddress
                             type='billing'
                             address={billingAddress}
+                            shippingAddress={shippingAddress}
                             toggleBilling={toggleBilling}
+                            setAddress={setBillingAddress}
                         />
 
                         <Stack>

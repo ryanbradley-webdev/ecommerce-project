@@ -4,12 +4,24 @@ import { STATES } from '../../util/states'
 export default function AddressForm({
     refs,
     toggleBilling,
-    type
+    type,
+    onChange
 }: {
     refs: AddressRefs
     toggleBilling?: (isSame: boolean) => void
     type: 'shipping' | 'billing'
-}) {    
+    onChange?: (value: string, type: keyof Address) => void
+}) {
+    const generateChange = (type: keyof Address) => {
+        if (onChange) {
+            return (e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange(e.target.value, type)
+            }
+        }
+
+        return undefined
+    }
+
     return (
         <>
             {(type === 'billing' && toggleBilling) && (
@@ -33,6 +45,7 @@ export default function AddressForm({
                 
                     <Input
                         ref={refs.firstName}
+                        onChange={generateChange('firstName')}
                     />
                 
                 </Input.Wrapper>
@@ -47,6 +60,7 @@ export default function AddressForm({
                 
                     <Input
                         ref={refs.lastName}
+                        onChange={generateChange('lastName')}
                     />
                 
                 </Input.Wrapper>
@@ -60,6 +74,7 @@ export default function AddressForm({
             
                 <Input
                     ref={refs.addressLineOne}
+                    onChange={generateChange('addressLineOne')}
                 />
             
             </Input.Wrapper>
@@ -71,6 +86,7 @@ export default function AddressForm({
                 <Input
                     ref={refs.addressLineTwo}
                     placeholder="optional"
+                    onChange={generateChange('addressLineTwo')}
                 />
             
             </Input.Wrapper>
@@ -82,6 +98,7 @@ export default function AddressForm({
                 <Input
                     ref={refs.addressLineThree}
                     placeholder="optional"
+                    onChange={generateChange('addressLineThree')}
                 />
             
             </Input.Wrapper>
@@ -101,6 +118,7 @@ export default function AddressForm({
                 
                     <Input
                         ref={refs.city}
+                        onChange={generateChange('city')}
                     />
                 
                 </Input.Wrapper>
@@ -109,6 +127,11 @@ export default function AddressForm({
                     ref={refs.state}
                     data={STATES}
                     label='State'
+                    onChange={value => {
+                        if (onChange && value) {
+                            onChange(value, 'state')
+                        }
+                    }}
                     w={70}
                     required
                 />
@@ -124,6 +147,7 @@ export default function AddressForm({
                     <Input
                         ref={refs.zip}
                         type="number"
+                        onChange={generateChange('zip')}
                     />
                 
                 </Input.Wrapper>
