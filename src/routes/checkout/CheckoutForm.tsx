@@ -6,7 +6,12 @@ import { CheckoutContext } from "../../contexts/CheckoutContext"
 import { useContext, useState } from "react"
 
 export default function CheckoutForm() {
-    const { handleSubmit } = useContext(CheckoutContext)
+    const {
+        billingAddressRefs,
+        shippingAddressRefs,
+        handleSubmit,
+        toggleBilling
+    } = useContext(CheckoutContext)
 
     const [formValue, setFormValue] = useState('shipping')
 
@@ -47,6 +52,7 @@ export default function CheckoutForm() {
                     <Accordion.Panel>
 
                         <AddressForm
+                            refs={shippingAddressRefs}
                             type="shipping"
                         />
 
@@ -72,7 +78,9 @@ export default function CheckoutForm() {
                     <Accordion.Panel>
 
                         <AddressForm
+                            refs={billingAddressRefs}
                             type="billing"
+                            toggleBilling={toggleBilling}
                         />
 
                         <Flex

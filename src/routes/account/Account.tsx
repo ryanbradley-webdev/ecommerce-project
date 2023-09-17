@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 import { Container, Flex, Stack, Text } from '@mantine/core'
 import { Link } from 'react-router-dom'
 import { IconAlertCircle } from '@tabler/icons-react'
+import AccountAddress from '../../components/accountAddress/AccountAddress'
 
 export default function Account() {
     const {
@@ -33,85 +34,15 @@ export default function Account() {
 
                         </Container>
 
-                        <Stack>
+                        <AccountAddress
+                            type='shipping'
+                            address={userData.shippingAddress}
+                        />
 
-                            <Flex
-                                justify='space-between'
-                            >
-
-                                <Text>
-                                    Shipping Address
-                                </Text>
-
-                                <button>
-                                    Edit
-                                </button>
-
-                            </Flex>
-
-                            <Container>
-
-                                {
-                                    userData.shippingAddress ? (
-                                        <>
-                                            <Text>
-                                                {userData.shippingAddress.firstName}
-                                            </Text>
-
-                                            <Text>
-                                                {userData.shippingAddress.lastName}
-                                            </Text>
-                                        </>
-                                    ) : (
-                                        <Text>
-                                            No shipping address saved
-                                        </Text>
-                                    )
-                                }
-
-                            </Container>
-
-                        </Stack>
-
-                        <Stack>
-
-                            <Flex
-                                justify='space-between'
-                            >
-
-                                <Text>
-                                    Billing Address
-                                </Text>
-
-                                <button>
-                                    Edit
-                                </button>
-
-                            </Flex>
-
-                            <Container>
-
-                                {
-                                    userData.billingAddress ? (
-                                        <>
-                                            <Text>
-                                                {userData.billingAddress.firstName}
-                                            </Text>
-
-                                            <Text>
-                                                {userData.billingAddress.lastName}
-                                            </Text>
-                                        </>
-                                    ) : (
-                                        <Text>
-                                            No billing address saved
-                                        </Text>
-                                    )
-                                }
-
-                            </Container>
-
-                        </Stack>
+                        <AccountAddress
+                            type='billing'
+                            address={userData.shippingAddress}
+                        />
 
                         <Stack>
 

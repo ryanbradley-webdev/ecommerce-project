@@ -1,24 +1,18 @@
 import { Flex, Input, Select, Checkbox } from '@mantine/core'
 import { STATES } from '../../util/states'
-import { CheckoutContext } from '../../contexts/CheckoutContext'
-import { useContext } from 'react'
 
 export default function AddressForm({
+    refs,
+    toggleBilling,
     type
 }: {
+    refs: AddressRefs
+    toggleBilling?: (isSame: boolean) => void
     type: 'shipping' | 'billing'
-}) {
-    const {
-        shippingAddressRefs,
-        billingAddressRefs,
-        toggleBilling
-    } = useContext(CheckoutContext)
-
-    const refs = type === 'shipping' ? shippingAddressRefs : billingAddressRefs
-    
+}) {    
     return (
         <>
-            {type === 'billing' && (
+            {(type === 'billing' && toggleBilling) && (
                 <Checkbox
                     label='Same as shipping address'
                     onChange={e => toggleBilling(e.target.checked)}
