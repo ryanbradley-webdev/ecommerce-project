@@ -19,6 +19,13 @@ export default function AuthProvider({
                     const { user } = res.data
 
                     setUser(user)
+
+                    supabase.from('user-data').select().eq('user_id', user.id).single()
+                        .then(res => {
+                            if (res.data) {
+                                setUserData(res.data)
+                            }
+                        })
                 }
 
                 return res
